@@ -16,14 +16,12 @@ namespace comp110_worksheet_6
         public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
             board = new Mark[width,height];
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-            return board[x, y];
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return board[x,y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
@@ -32,12 +30,11 @@ namespace comp110_worksheet_6
 		{
             if (board[x,y] == Mark.None)
             {
-                board[x, y] = mark;
+                board[x,y] = mark;
                 return true;
             }
 
             return false;
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
 		}
 
 		// If there are still empty squares on the board, return false.
@@ -56,34 +53,68 @@ namespace comp110_worksheet_6
             }
 
             return true;
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-            return CheckAdjacentMarks(new Mark[] { Mark.O, Mark.X });
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
-
-        public Mark CheckAdjacentMarks(Mark[] marksToCheck)
-        {
-            foreach (Mark mark in marksToCheck)
+            foreach (Mark mark in new Mark[] { Mark.O, Mark.X })
             {
-                for (int x = 0; x < board.GetLength(0); x++)
+                if (CheckDiagonalMark(mark))
                 {
-                    for (int y = 0; y < board.GetLength(1); y++)
+                    return mark;
+                }
+
+                for (int i = 0; i < board.GetLength(0); i++)
+                {
+                    if (CheckHorizontalMark(mark, i) || CheckVerticalMark(mark, i))
                     {
-                        if (board[x,y] != mark)
-                        {
-                            break;
-                        }
+                        return mark;
                     }
                 }
             }
 
             return Mark.None;
+		}
+
+        public bool CheckHorizontalMark(Mark mark, int y)
+        {
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                if (board[x, y] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CheckVerticalMark(Mark mark, int x)
+        {
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                if (board[x, y] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CheckDiagonalMark(Mark mark)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                if (board[i, i] != mark && board[board.GetLength(0) - 1 - i, i] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
