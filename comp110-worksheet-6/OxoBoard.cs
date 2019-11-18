@@ -10,16 +10,28 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-		// Constructor. Perform any necessary data initialisation here.
-		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+        private List<List<Mark>> board;
+
+        // Constructor. Perform any necessary data initialisation here.
+        // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
+        public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            board = new List<List<Mark>>();
+            for (int i = 0; i < height; i++)
+            {
+                List<Mark> sublist = new List<Mark>();
+                for (int j = 0; j < width; j++)
+                {
+                    sublist.Add(Mark.None);
+                }
+                board.Add(sublist);
+            }
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
+            board
 			throw new NotImplementedException("TODO: implement this function and then remove this exception");
 		}
 
