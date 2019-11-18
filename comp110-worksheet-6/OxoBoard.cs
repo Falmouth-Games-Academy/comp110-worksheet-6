@@ -54,25 +54,85 @@ namespace comp110_worksheet_6
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-            bool hasSpace = false;
+            bool hasSpace = true;
             foreach (List<Mark> row in board)
             {
                 foreach (Mark mark in row)
                 {
                     if (mark == Mark.None)
                     {
-                        hasSpace = true;
+                        hasSpace = false;
                     }
                 }
             }
             return hasSpace;
 		}
 
+        private Mark checkLine(List<Mark> line)
+        {
+            Mark winner = line[0];
+            Mark firstMark = line[0];
+            foreach (Mark mark in line)
+            {
+                if ((firstMark == Mark.None) || (mark != firstMark))
+                {
+                    winner = Mark.None;
+                }
+            }
+            return winner;
+        }
+
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            Mark winner = Mark.None;
+
+            // Check the Lines of the board.
+            foreach (List<Mark> line in board)
+            {
+                if (winner == Mark.None)
+                {
+                    winner = checkLine(line);
+                }
+            }
+
+            
+            // Check the Columns of the board.
+            for (int i = 0; i < board.Count; i++)
+            {
+                if (winner == Mark.None)
+                {
+                    List<Mark> column = new List<Mark>();
+                    for (int j = 0; j < board[i].Count; j++)
+                    {
+                        column.Add(board[i][j]);
+                    }
+                    winner = checkLine(column);
+                }
+            }
+
+            if (winner == Mark.None)
+            {
+                List<Mark> diagonal = new List<Mark>();
+                for (int i = 0; i < board.Count; i++)
+                {
+                    diagonal.Add(board[i][i]);
+                }
+                winner = checkLine(diagonal);
+            }
+
+            if (winner == Mark.None)
+            {
+                List<Mark> reverseDiagonal = new List<Mark>();
+                for (int i = 0; i < board.Count; i++)
+                {
+                    reverseDiagonal.Add(board[i][board.Count - 1 - i]);
+                }
+                winner = checkLine(reverseDiagonal);
+            }
+
+            return winner;
 		}
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
