@@ -37,14 +37,35 @@ namespace comp110_worksheet_6
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			if (board[x, y] == null)
+			{
+				board[x, y] = mark;
+				return true;
+
+			} 
+			else 
+			{
+				return false;
+			}
+
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			for (int x = 0; x < board.GetLength(0); x++)
+			{
+				for (int y = 0; y < board.GetLength(1); y++)
+				{
+					if (board[x, y] == null) 
+					{
+						return false;
+					}
+				}
+			}
+			
+			return true;
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
