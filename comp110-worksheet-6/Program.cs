@@ -39,7 +39,30 @@ namespace comp110_worksheet_6
 		{
 			bool gameIsOver = false;
 			Mark currentPlayer = Mark.O;
-			OxoBoard board = new OxoBoard();
+
+            Tuple<int, int> boardSize = null;
+            while (boardSize == null)
+            {
+                Console.WriteLine("Enter the size of the square in the form x,y:");
+                boardSize = InputSquare();
+            }
+            int inARow = 0;
+            while (inARow == 0)
+            {
+                Console.WriteLine("Enter amount of symbols in a row to win:");
+                string input = Console.ReadLine();
+                if (!int.TryParse(input, out inARow))
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+                else if (inARow == 0 || (inARow > boardSize.Item1 && inARow > boardSize.Item2))
+                {
+                    Console.WriteLine("Invalid input!");
+                    inARow = 0;
+                }
+            }
+
+            OxoBoard board = new OxoBoard(boardSize.Item1, boardSize.Item2, inARow);
 
 			while (!gameIsOver)
 			{
