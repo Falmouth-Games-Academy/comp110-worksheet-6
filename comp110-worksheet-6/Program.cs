@@ -39,7 +39,7 @@ namespace comp110_worksheet_6
 		{
 			bool gameIsOver = false;
 			Mark currentPlayer = Mark.O;
-			OxoBoard board = new OxoBoard();
+			OxoBoard board = new OxoBoard(4);
 
 			while (!gameIsOver)
 			{
