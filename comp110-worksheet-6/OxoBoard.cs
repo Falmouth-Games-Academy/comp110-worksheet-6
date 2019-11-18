@@ -64,7 +64,7 @@ namespace comp110_worksheet_6
 					}
 				}
 			}
-			
+
 			return true;
 		}
 
@@ -72,7 +72,73 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			int playerOCount = 0;
+			int playerXCount = 0;
+
+			// Checks the board horizontally for three in a row
+			for (int x = 0; x < board.GetLength(0); x++)
+			{
+				for (int y = 0; y < board.GetLength(1); y++)
+				{
+					if (board[x, y] == Mark.O)
+					{
+						playerOCount++;
+					}
+					else if (board[x, y] == Mark.X)
+					{
+						playerXCount++;
+					}
+					else
+					{
+						playerXCount = 0;
+						playerOCount = 0;
+					}
+
+					if (playerOCount == 3)
+					{
+						return Mark.O;
+					} 
+					else if (playerXCount == 3)
+					{
+						return Mark.X;
+					}
+				}
+			}
+
+			playerXCount = 0;
+			playerOCount = 0;
+
+			// Checks the board vertically for three in a row
+			for (int y = 0; y < board.GetLength(0); y++)
+			{
+				for (int x = 0; x < board.GetLength(1); x++)
+				{
+					if (board[x, y] == Mark.O)
+					{
+						playerOCount++;
+					}
+					else if (board[x, y] == Mark.X)
+					{
+						playerXCount++;
+					}
+					else
+					{
+						playerXCount = 0;
+						playerOCount = 0;
+					}
+
+					if (playerOCount == 3)
+					{
+						return Mark.O;
+					} 
+					else if (playerXCount == 3)
+					{
+						return Mark.X;
+					}
+				}
+			}
+
+			return Mark.None;
 		}
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
@@ -104,4 +170,3 @@ namespace comp110_worksheet_6
 		}
 	}
 }
-
