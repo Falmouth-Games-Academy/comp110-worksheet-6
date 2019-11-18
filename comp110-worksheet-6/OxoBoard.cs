@@ -22,13 +22,15 @@ namespace comp110_worksheet_6
 
 		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
+			// Initialises game board to a 3 * 3 square
 			board = new Mark[3, 3];
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			// Returns the boards value, if the value is null then it returns Mark.None
+			return board[x, y] ?? Mark.None;
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
