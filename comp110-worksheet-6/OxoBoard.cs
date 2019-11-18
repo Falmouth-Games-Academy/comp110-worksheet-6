@@ -66,26 +66,26 @@ namespace comp110_worksheet_6
                 {
                     if (board[i,j] == Mark.None)
                     {
-                        return false;
+                        return false; //if any of them are none, then the board must not be full
                     }
                 }
             }
-            return true;
+            return true; //if we are still executing, we havent found an empty square, so it must be full
         }
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
-		{
+		{//contains a list of coordinates for every possible win state, for example, "001020" means (0,0),(1,0),(2,0)
             string[] WinStates = {"001020", "011121", "021222", "000102", "101112", "202122", "001122", "201102"};
             foreach (string winState in WinStates)
-            {
+            {//if all the needed places are the same, and one of them isnt none, then someone must have won, so we can just return the first square
                 if (board[winState[0] - '0', winState[1] - '0'] == board[winState[2] - '0', winState[3] - '0'] && board[winState[2] - '0', winState[3] - '0']  == board[winState[4] - '0', winState[5] - '0'] && board[winState[4] - '0', winState[5] - '0'] != Mark.None)
                 {
                     return board[winState[0] - '0', winState[1] - '0'];
                 }
 
-            }
+            }//if we havent retured yet, nobody has won, so return none
             return Mark.None;
 		}
 
@@ -94,8 +94,8 @@ namespace comp110_worksheet_6
 		{
 			for (int y = 0; y < 3; y++)
 			{
-				if (y > 0)
-					Console.WriteLine("──┼───┼──");
+				if (y > 0)// Replaced characters with proper box-drawing characters (https://en.wikipedia.org/wiki/Box-drawing_character). These are brilliant, I recommend using them a lot
+                    Console.WriteLine("──┼───┼──");
 
 				for (int x = 0; x < 3; x++)
 				{
