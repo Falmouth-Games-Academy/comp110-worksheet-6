@@ -31,22 +31,41 @@ namespace comp110_worksheet_6
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-            board
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return board[x][y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            if (GetSquare(x, y) == Mark.None)
+            {
+                board[x][y] = mark;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            bool hasSpace = false;
+            foreach (List<Mark> row in board)
+            {
+                foreach (Mark mark in row)
+                {
+                    if (mark == Mark.None)
+                    {
+                        hasSpace = true;
+                    }
+                }
+            }
+            return hasSpace;
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
