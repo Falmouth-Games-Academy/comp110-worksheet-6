@@ -72,7 +72,7 @@ namespace comp110_worksheet_6
 					}
 
 					// Check for board full
-					if (board.IsBoardFull())
+					if (board.IsBoardFull() && winner == Mark.None)
 					{
 						board.PrintBoard();
 						Console.WriteLine("It's a draw!");
