@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace comp110_worksheet_6
 {
-	public enum Mark { None, O, X };
+	public enum Mark 
+	{ 
+		None, 
+		O, 
+		X 
+	};
 
 	public class OxoBoard
 	{
