@@ -13,6 +13,7 @@ namespace comp110_worksheet_6
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         Mark[,] board;
+
         public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
             board = new Mark[width,height];
@@ -28,10 +29,13 @@ namespace comp110_worksheet_6
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-            if (board[x,y] == Mark.None)
+            if (x < board.GetLength(0) && y < board.GetLength(1))
             {
-                board[x,y] = mark;
-                return true;
+                if (board[x,y] == Mark.None)
+                {
+                    board[x,y] = mark;
+                    return true;
+                }
             }
 
             return false;
@@ -120,12 +124,12 @@ namespace comp110_worksheet_6
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
 		{
-			for (int y = 0; y < 3; y++)
+			for (int y = 0; y < board.GetLength(1); y++)
 			{
-				if (y > 0)
-					Console.WriteLine("--+---+--");
+                if (y > 0)
+				    Console.WriteLine(new String('-', 3 * board.GetLength(1)));
 
-				for (int x = 0; x < 3; x++)
+				for (int x = 0; x < board.GetLength(0); x++)
 				{
 					if (x > 0)
 						Console.Write(" | ");
