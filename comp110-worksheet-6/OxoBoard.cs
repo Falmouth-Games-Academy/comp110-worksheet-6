@@ -65,7 +65,7 @@ namespace comp110_worksheet_6
 		{
             foreach (Mark mark in new Mark[] { Mark.O, Mark.X })
             {
-                if (CheckDiagonalMark(mark))
+                if (CheckNegDiagonalMark(mark) || CheckPosDiagonalMark(mark))
                 {
                     return mark;
                 }
@@ -108,11 +108,11 @@ namespace comp110_worksheet_6
             return true;
         }
 
-        public bool CheckDiagonalMark(Mark mark)
+        public bool CheckNegDiagonalMark(Mark mark)
         {
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                if (board[i, i] != mark && board[board.GetLength(0) - 1 - i, i] != mark)
+                if (board[i, i] != mark)
                 {
                     return false;
                 }
@@ -121,8 +121,21 @@ namespace comp110_worksheet_6
             return true;
         }
 
-		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
-		public void PrintBoard()
+        public bool CheckPosDiagonalMark(Mark mark)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                if (board[board.GetLength(0) - 1 - i, i] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
+        public void PrintBoard()
 		{
 			for (int y = 0; y < board.GetLength(1); y++)
 			{
