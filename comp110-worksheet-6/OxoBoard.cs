@@ -30,14 +30,14 @@ namespace comp110_worksheet_6
 		public Mark GetSquare(int x, int y)
 		{
 			// Returns the boards value, if the value is null then it returns Mark.None
-			return board[x, y] ?? Mark.None;
+			return board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			if (board[x, y] == null)
+			if (board[x, y] == Mark.None)
 			{
 				board[x, y] = mark;
 				return true;
@@ -58,7 +58,7 @@ namespace comp110_worksheet_6
 			{
 				for (int y = 0; y < board.GetLength(1); y++)
 				{
-					if (board[x, y] == null) 
+					if (board[x, y] == Mark.None) 
 					{
 						return false;
 					}
