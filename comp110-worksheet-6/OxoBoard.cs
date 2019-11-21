@@ -10,31 +10,57 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
+        public Mark[,] Game_Board;
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+		public OxoBoard(int width = 3, int height = 3 /*, int inARow = 3*/)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            Game_Board = new Mark[width, height];
+
+            for (int x = 0; x < width; x++)
+            {for (int y = 0; y < height; y++)
+                {
+                    Game_Board[x, y] = Mark.None;
+                    
+                }
+            }           
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return Game_Board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            if (Game_Board[x, y] == Mark.None)
+            {
+                Game_Board[x, y] = mark;
+                return true;
+            }
+            else {
+                return false;
+            } 
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+
+            for (int x = 0; x < Game_Board.Length; x++)
+            {
+                for (int y = 0; y < Game_Board.Length; y++)
+                {
+                    if (Game_Board[x, y] == Mark.None)
+                        return false; 
+
+                }
+            }
+            return true;
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
