@@ -8,25 +8,23 @@ namespace comp110_worksheet_6
 {
 	public enum Mark { None, O, X };
 
+
     public class OxoBoard
     {
+        private Mark[,] board;
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public string[,] oandxBoardArray = new string[3, 3] { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
-        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+        public OxoBoard(int width = 3, int height = 3, int inARow = 3 )
         {
-            Console.WriteLine("{0} | {1} | {2}", oandxBoardArray[0, 0], oandxBoardArray[0, 1], oandxBoardArray[0, 2]);
-            Console.WriteLine("----------");
-            Console.WriteLine("{0} | {1} | {2}", oandxBoardArray[1, 0], oandxBoardArray[1, 1], oandxBoardArray[1, 2]);
-            Console.WriteLine("----------");
-            Console.WriteLine("{0} | {1} | {2}", oandxBoardArray[2, 0], oandxBoardArray[2, 1], oandxBoardArray[2, 2]);
+            board = new Mark[width, height];
         }   
     
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
