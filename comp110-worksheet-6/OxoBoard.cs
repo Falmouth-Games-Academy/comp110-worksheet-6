@@ -15,18 +15,15 @@ namespace comp110_worksheet_6
         private readonly int WinConditionCount = 8;
         // TODO:
         private readonly List<int[,]> WinConditions = new List<int[,]> {
-             new int [3,2] { { 0, 0 }, { 0, 1 }, { 0, 2} },
-             new int [3,2] { { 1, 0 }, { 1, 1 }, { 1, 2} },
-             new int [3,2] { { 2, 0 }, { 2, 1 }, { 2, 2} },
-             new int [3,2] { { 0, 0 }, { 1, 0 }, { 2, 0} },
-             new int [3,2] { { 0, 1 }, { 1, 1 }, { 2, 1} },
-             new int [3,2] { { 0, 2 }, { 1, 2 }, { 2, 2} },
-             new int [3,2] { { 0, 0 }, { 1, 1 }, { 2, 2} },
-             new int [3,2] { { 2, 0 }, { 1, 1 }, { 0, 2} },
+             new int [3,2] { { 0, 0 }, { 0, 1 }, { 0, 2 } },
+             new int [3,2] { { 1, 0 }, { 1, 1 }, { 1, 2 } },
+             new int [3,2] { { 2, 0 }, { 2, 1 }, { 2, 2 } },
+             new int [3,2] { { 0, 0 }, { 1, 0 }, { 2, 0 } },
+             new int [3,2] { { 0, 1 }, { 1, 1 }, { 2, 1 } },
+             new int [3,2] { { 0, 2 }, { 1, 2 }, { 2, 2 } },
+             new int [3,2] { { 0, 0 }, { 1, 1 }, { 2, 2 } },
+             new int [3,2] { { 2, 0 }, { 1, 1 }, { 0, 2 } },
         };
-
-
-
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
@@ -57,32 +54,40 @@ namespace comp110_worksheet_6
         // If there are no empty squares, return true.
         public bool IsBoardFull()
         {
-            for (int x = 0; x < BoardWidth; x++)
+            for (int x = 0; x < /*BoardWidth*/3; x++)
             {
-                for (int y = 0; x < BoardHeight; y++)
+                for (int y = 0; x < /*BoardHeight*/3; y++)
                 {
-                    if (Board[x, y] == Mark.None) return true;
+                    if (GetSquare(x, y) == Mark.None)
+                        return false;
                 }
             }
-            return false;
+            return true;
         }
 
         // If a player has three in a row, return Mark.O or Mark.X depending on which player.
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
+            Mark state = Mark.None;
             for (int win = 0; win < WinConditionCount; win++)
             {
-                for (int col = 0; col < BoardWidth; col++)
+                var condition = WinConditions[win];
+                for (int col = 0; col < 3; col++)
                 {
-                    var condition = WinConditions[win];
-                    for (int row = 0; row < 3; row++)
+                    Mark square = GetSquare(condition[col, 0], condition[col, 1]);
+                    if (square == Mark.None)
+                        state = square;
+                    else if (square != state)
                     {
-                        Mark square = GetSquare();
+                        state = Mark.None;
+                        break;
                     }
                 }
+                if (state != Mark.None)
+                    return state;
             }
-            throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return Mark.None;
         }
 
         // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
