@@ -6,75 +6,160 @@ using System.Threading.Tasks;
 
 namespace comp110_worksheet_6
 {
-	public enum Mark { None, O, X };
-
+    public enum Mark { None, O, X };
 
     public class OxoBoard
     {
-        private Mark[,] board;
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-        public string[,] oandxBoardArray = new string[3, 3] { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
-        public OxoBoard(int width = 3, int height = 3, int inARow = 3 )
+        Mark[,] board;
+
+        public OxoBoard(int width = 3, int height = 3)
         {
             board = new Mark[width, height];
-        }   
-    
+        }
 
-		// Return the contents of the specified square.
-		public Mark GetSquare(int x, int y)
-		{
+        // Return the contents of the specified square.
+        public Mark GetSquare(int x, int y)
+        {
             return board[x, y];
-		}
+        }
 
-		// If the specified square is currently empty, fill it with mark and return true.
-		// If the square is not empty, leave it as-is and return False.
-		public bool SetSquare(int x, int y, Mark mark)
-		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+        // If the specified square is currently empty, fill it with mark and return true.
+        // If the square is not empty, leave it as-is and return False.
+        public bool SetSquare(int x, int y, Mark mark)
+        {
+            if (x < board.GetLength(0) && y < board.GetLength(1))
+            {
+                if (board[x, y] == Mark.None)
+                {
+                    board[x, y] = mark;
+                    return true;
+                }
+            }
 
-		// If there are still empty squares on the board, return false.
-		// If there are no empty squares, return true.
-		public bool IsBoardFull()
-		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+            return false;
+        }
 
-		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
-		// Otherwise, return Mark.None.
-		public Mark GetWinner()
-		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+        // If there are still empty squares on the board, return false.
+        // If there are no empty squares, return true.
+        public bool IsBoardFull()
+        {
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    if (board[x, y] == Mark.None)
+                    {
+                        return false;
+                    }
+                }
+            }
 
-		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
-		public void PrintBoard()
-		{
-			for (int y = 0; y < 3; y++)
-			{
-				if (y > 0)
-					Console.WriteLine("--+---+--");
+            return true;
+        }
 
-				for (int x = 0; x < 3; x++)
-				{
-					if (x > 0)
-						Console.Write(" | ");
+        // If a player has three in a row, return Mark.O or Mark.X depending on which player.
+        // Otherwise, return Mark.None.
+        public Mark GetWinner()
+        {
+            foreach (Mark mark in new Mark[] { Mark.O, Mark.X })
+            {
+                if (NegDiagonalMark(mark) || PosDiagonalMark(mark))
+                {
+                    return mark;
+                }
 
-					switch (GetSquare(x, y))
-					{
-						case Mark.None:
-							Console.Write(" "); break;
-						case Mark.O:
-							Console.Write("O"); break;
-						case Mark.X:
-							Console.Write("X"); break;
-					}
-				}
+                for (int i = 0; i < board.GetLength(0); i++)
+                {
+                    if (HorizontalMark(mark, i) || VerticalMark(mark, i))
+                    {
+                        return mark;
+                    }
+                }
+            }
 
-				Console.WriteLine();
-			}
-		}
-	}
+            return Mark.None;
+        }
+
+        public bool HorizontalMark(Mark mark, int y)
+        {
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                if (board[x, y] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool VerticalMark(Mark mark, int x)
+        {
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                if (board[x, y] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool NegDiagonalMark(Mark mark)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                if (board[i, i] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool PosDiagonalMark(Mark mark)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                if (board[board.GetLength(0) - 1 - i, i] != mark)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
+        public void PrintBoard()
+        {
+            for (int y = 0; y < board.GetLength(1); y++)
+            {
+                if (y > 0)
+                    Console.WriteLine(new String('-', 3 * board.GetLength(1)));
+
+                for (int x = 0; x < board.GetLength(0); x++)
+                {
+                    if (x > 0)
+                        Console.Write(" | ");
+
+                    switch (GetSquare(x, y))
+                    {
+                        case Mark.None:
+                            Console.Write(" "); break;
+                        case Mark.O:
+                            Console.Write("O"); break;
+                        case Mark.X:
+                            Console.Write("X"); break;
+                    }
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
 }
-
