@@ -62,23 +62,23 @@ namespace comp110_worksheet_6
 					// Success, so switch players
 					currentPlayer = (currentPlayer == Mark.O) ? Mark.X : Mark.O;
 
-					// Check for a win
-					var winner = board.GetWinner();
-					if (winner != Mark.None)
-					{
-						board.PrintBoard();
-						Console.WriteLine("Player {0} wins!", winner);
-						gameIsOver = true;
-					}
+                    // Check for a win
+                    var winner = board.GetWinner();
+                    if (winner != Mark.None)
+                    {
+                        board.PrintBoard();
+                        Console.WriteLine("Player {0} wins!", winner);
+                        gameIsOver = true;
+                    }
 
-					// Check for board full
-					if (board.IsBoardFull())
-					{
-						board.PrintBoard();
-						Console.WriteLine("It's a draw!");
-						gameIsOver = true;
-					}
-				}
+                    // Check for board full
+                    if (board.IsBoardFull())
+                    {
+                        board.PrintBoard();
+                        Console.WriteLine("It's a draw!");
+                        gameIsOver = true;
+                    }
+                }
 				else
 				{
 					Console.WriteLine("Invalid move!");
