@@ -44,7 +44,7 @@ namespace comp110_worksheet_6
         // If the square is not empty, leave it as-is and return False.
         public bool SetSquare(int x, int y, Mark mark)
         {
-            if (board[x, y] == Mark.None)
+            if (board[x, y] == Mark.None && (x>=0 && x<3) && (y>=0 && y<3))
             {
                 board[x, y] = mark;
                 return true;
