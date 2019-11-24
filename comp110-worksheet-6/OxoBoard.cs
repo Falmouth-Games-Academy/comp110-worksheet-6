@@ -11,6 +11,7 @@ namespace comp110_worksheet_6
 	public class OxoBoard
 	{
         Mark[,] oxoGrid;
+
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
@@ -60,9 +61,47 @@ namespace comp110_worksheet_6
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
-		{
+		{   
+            //Checks if player has 3 in a row vertically
+            if (oxoGrid[0,0] != Mark.None && oxoGrid[0,0] == oxoGrid[0,1] && oxoGrid[0,2] == oxoGrid[0,0])
+            {
+                return oxoGrid[0, 0];
+            }
+            else if (oxoGrid[1, 0] != Mark.None && oxoGrid[1, 0] == oxoGrid[1, 1] && oxoGrid[1, 2] == oxoGrid[1, 0])
+            {
+                return oxoGrid[1, 0];
+            }
+            else if (oxoGrid[2, 0] != Mark.None && oxoGrid[2, 0] == oxoGrid[2, 1] && oxoGrid[2, 2] == oxoGrid[2, 0])
+            {
+                return oxoGrid[2, 0];
+            }
+
+            //Checks if player has 3 in a row horizontally
+            if (oxoGrid[0, 0] != Mark.None && oxoGrid[1, 0] == oxoGrid[0, 0] && oxoGrid[2, 0] == oxoGrid[0, 0])
+            {
+                return oxoGrid[0, 0];
+            }
+            else if (oxoGrid[0, 1] != Mark.None && oxoGrid[1, 1] == oxoGrid[0, 1] && oxoGrid[2, 1] == oxoGrid[0, 1])
+            {
+                return oxoGrid[0, 1];
+            }
+            else if (oxoGrid[0, 2] != Mark.None && oxoGrid[1, 2] == oxoGrid[0, 2] && oxoGrid[2, 2] == oxoGrid[0, 2])
+            {
+                return oxoGrid[0, 2];
+            }
+
+            //Checks if player has 3 in a row diagonally
+            if (oxoGrid[0, 0] != Mark.None && oxoGrid[1, 1] == oxoGrid[0, 0] && oxoGrid[2, 2] == oxoGrid[0, 0])
+            {
+                return oxoGrid[0, 0];
+            }
+            else if (oxoGrid[0, 2] != Mark.None && oxoGrid[1, 1] == oxoGrid[0, 2] && oxoGrid[2, 0] == oxoGrid[0, 2])
+            {
+                return oxoGrid[0, 2];
+            }
+
             return Mark.None;
-		}
+        }
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
