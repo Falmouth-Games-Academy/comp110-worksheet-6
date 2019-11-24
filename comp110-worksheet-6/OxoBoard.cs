@@ -87,7 +87,7 @@ namespace comp110_worksheet_6
             }
             if (Board[2, 0] == Board[1, 1] && Board[1, 1] == Board[0, 2])
             {
-                return [2, 0];
+                return Board[2, 0];
             }
 
             return Mark.None;
