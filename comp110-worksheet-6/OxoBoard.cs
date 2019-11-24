@@ -10,12 +10,17 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-		// Constructor. Perform any necessary data initialisation here.
-		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+        public string[,] Board;
+
+        // Constructor. Perform any necessary data initialisation here.
+        // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
+        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+            Board = new string[3, 3] { { " ", " ", " " },
+                                       { " ", " ", " " },
+                                       { " ", " ", " " } };
+
+        }
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
