@@ -46,7 +46,7 @@ namespace comp110_worksheet_6
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="inARow"></param>
-        public OxoBoard(int width = 3, int height = 3, int inARow = 3)
+        public OxoBoard(int width = 5, int height = 5, int inARow = 3)
 		{
             grids = new Grid[width, height];
             this.inARow = inARow;
@@ -323,33 +323,34 @@ namespace comp110_worksheet_6
             return Mark.None;
         }
 
-		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
-		public void PrintBoard()
-		{
-			for (int y = 0; y < grids.GetLength(1); y++)
-			{
-				if (y > 0)
-					Console.WriteLine("--+---+--");
+        //Display the current board state in the terminal.You should only need to edit this if you are attempting the stretch goal.
 
-				for (int x = 0; x < grids.GetLength(0); x++)
-				{
-					if (x > 0)
-						Console.Write(" | ");
+        public void PrintBoard()
+        {
+            for (int y = 0; y < grids.GetLength(1); y++)
+            {
+                if (y > 0)
+                    Console.WriteLine("--+---+--");
 
-					switch (GetSquare(x, y))
-					{
-						case Mark.None:
-							Console.Write(" "); break;
-						case Mark.O:
-							Console.Write("O"); break;
-						case Mark.X:
-							Console.Write("X"); break;
-					}
-				}
+                for (int x = 0; x < grids.GetLength(0); x++)
+                {
+                    if (x > 0)
+                        Console.Write(" | ");
 
-				Console.WriteLine();
-			}
-		}
+                    switch (GetSquare(x, y))
+                    {
+                        case Mark.None:
+                            Console.Write(" "); break;
+                        case Mark.O:
+                            Console.Write("O"); break;
+                        case Mark.X:
+                            Console.Write("X"); break;
+                    }
+                }
+
+                Console.WriteLine();
+            }
+        }
     }
 }
 
