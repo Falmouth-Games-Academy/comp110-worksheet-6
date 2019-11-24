@@ -14,27 +14,54 @@ namespace comp110_worksheet_6
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
 		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			int [,] tic-tack-toe = new int[3, 3];
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+			if (tic-tack-toe[x, y] == Mark.O)
+            {
+                return Mark.O;
 
+            }
+            else if(tic-tack-toe[x, y] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else
+            {
+                return Mark.None;
+            }
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+                if (tic-tack-toe[x, y] == Mark.None)
+                {
+                    tic-tack-toe[x, y] = mark;
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			for (int y= 0; y <2; y++)
+                    {
+                        for (int x = 0; x <2; x++)
+                        {
+                            if (board[x, y] == Mark.None)
+                            {
+                                return false;
+                            }
+                        }
+                    }
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
