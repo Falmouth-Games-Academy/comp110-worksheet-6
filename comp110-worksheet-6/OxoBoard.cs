@@ -59,6 +59,7 @@ namespace comp110_worksheet_6
                 for (int y = 0; x < /*BoardHeight*/3; y++)
                 {
                     if (GetSquare(x, y) == Mark.None)
+                        if (x >= 3 || y >= 3) continue;
                         return false;
                 }
             }
