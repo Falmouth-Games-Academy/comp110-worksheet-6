@@ -44,14 +44,52 @@ namespace comp110_worksheet_6
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.GetLength(1); j++)
+                {
+                    if (Board[i,j] == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            // Horizontal.
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                if (Board[i, 0] == Board[i, 1] && Board[i, 1] == Board[i, 2])
+                {
+                    return GetSquare(i, 0);
+                }
+            }
+
+            // Vertical.
+            for (int j = 0; j < Board.GetLength(1); j++)
+            {
+                if (Board[0, j] == Board[1, j] && Board[1, j] == Board[2, j])
+                {
+                    return GetSquare(j, 0);
+                }
+            }
+
+            // Diagonals.
+            if (Board[0, 0] == Board[1, 1] && Board[1, 1] == Board[2, 2])
+            {
+                return GetSquare(0, 0);
+            }
+            if (Board[2, 0] == Board[1, 1] && Board[1, 1] == Board[0, 2])
+            {
+                return GetSquare(2, 0);
+            }
+
+            return Mark.None;
 		}
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
