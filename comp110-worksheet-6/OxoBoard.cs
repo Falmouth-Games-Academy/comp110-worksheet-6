@@ -12,12 +12,19 @@ namespace comp110_worksheet_6
     {
         public Mark mark;
         public Tuple<int, int> gridPosition;
-        public Tuple<int, int>[] winningPositions;
+        //I'm so sorry for this monstrosity
+        public List<List<Tuple<int, int>>> winningPositions = new List<List<Tuple<int, int>>>();
+
+        public Grid(Mark mark, Tuple<int, int> gridPosition)
+        {
+            this.mark = mark;
+            this.gridPosition = gridPosition;
+        }
     }
 
     public class OxoBoard
 	{
-        private Mark[,] boardValues;
+        private Grid[,] grids;
 
         private int boardWidth = 3;
         private int boardHeight = 3;
@@ -28,18 +35,152 @@ namespace comp110_worksheet_6
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
-            boardValues = new Mark[width, height];
+            grids = new Grid[width, height];
 
             boardWidth = width;
             boardHeight = height;
 
             this.inARow = inARow;
+
+            InstantiateGrids();
 		}
 
-		// Return the contents of the specified square.
-		public Mark GetSquare(int x, int y)
+        private void InstantiateGrids()
+        {
+            for (int x = 0; x < grids.GetLength(0); x++)
+            {
+                for (int y = 0; y < grids.GetLength(1); y++)
+                {
+                    grids[x, y] = new Grid(Mark.None, new Tuple<int, int>(x, y));
+                    AssignWinningPositions(grids[x, y]);
+                }
+            }
+
+            DebugGridTile(grids[2, 0]);
+            DebugGridTile(grids[0, 2]);
+        }
+
+        private Mark CheckGridTile(Grid gridTile)
+        {
+            List<Mark> marks;
+
+            foreach (var winningPositions in gridTile.winningPositions)
+            {
+                marks = new List<Mark>();
+                for (int i = 0; i < winningPositions.Count; i++)
+                { 
+                    if (winningPositions[i].Item1 < grids.GetLength(0) && winningPositions[i].Item2 < grids.GetLength(1))
+                    {
+                        marks.Add(GetSquare(winningPositions[i].Item1, winningPositions[i].Item2));
+                        //Console.WriteLine(GetSquare(winningPositions[i].Item1, winningPositions[i].Item2));
+                    }
+                    
+                }
+                
+                if (AllMarksTheSame(marks.ToArray()) && marks.Count == inARow)
+                {
+                    Console.WriteLine(marks[0] + " won!");
+                    return marks[0];
+                }
+
+                //Console.WriteLine();
+            }
+
+            return Mark.None;
+        }
+
+        private bool AllMarksTheSame(Mark[] marks)
+        {
+            for (int i = 0; i < marks.Length; i++)
+            {
+                for (int j = 0; j < marks.Length; j++)
+                {
+                    if (marks[i] != marks[j] || marks[j] == Mark.None || marks[i] == Mark.None)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private void DebugGridTile(Grid gridTile)
+        {
+            for (int i = 0; i < gridTile.winningPositions.Count; i++)
+            {
+                for (int j = 0; j < gridTile.winningPositions[i].Count; j++)
+                {
+                    Console.WriteLine(gridTile.winningPositions[i][j]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private void AssignWinningPositions(Grid grid)
+        {
+            grid.winningPositions.Add(GetHorizontalSolutions(grid.gridPosition));
+            grid.winningPositions.Add(GetVerticalSolutions(grid.gridPosition));
+            grid.winningPositions.Add(GetUpDiagonalSolution(grid.gridPosition));
+            grid.winningPositions.Add(GetDownDiagonalSolution(grid.gridPosition));
+        }
+
+        private List<Tuple<int, int>> GetHorizontalSolutions(Tuple<int, int> gridPos)
+        {
+            List<Tuple<int, int>> horizontalSet = new List<Tuple<int, int>>();
+            horizontalSet.Add(gridPos);
+
+            for (int xOffset = 1; xOffset < inARow; xOffset++)
+            {
+                horizontalSet.Add(new Tuple<int, int>(gridPos.Item1 + xOffset, gridPos.Item2));
+            }
+
+            return horizontalSet;
+        }
+
+        private List<Tuple<int, int>> GetVerticalSolutions(Tuple<int, int> gridPos)
+        {
+            List<Tuple<int, int>> verticalSet = new List<Tuple<int, int>>();
+            verticalSet.Add(gridPos);
+
+            for (int yOffset = 1; yOffset < inARow; yOffset++)
+            {
+                verticalSet.Add(new Tuple<int, int>(gridPos.Item1, gridPos.Item2 + yOffset));
+            }
+
+            return verticalSet;
+        }
+
+        private List<Tuple<int, int>> GetUpDiagonalSolution(Tuple<int, int> gridPos)
+        {
+            List<Tuple<int, int>> upDiagonalSet = new List<Tuple<int, int>>();
+
+            for (int zOffset = 0; zOffset < inARow; zOffset++)
+            {
+                upDiagonalSet.Add(new Tuple<int, int>(gridPos.Item1 + zOffset, gridPos.Item2 + zOffset));
+            }
+
+            return upDiagonalSet;
+        }
+
+        private List<Tuple<int, int>> GetDownDiagonalSolution(Tuple<int, int> gridPos)
+        {
+            List<Tuple<int, int>> downDiagonal = new List<Tuple<int, int>>();
+            int y = inARow - 1;
+            for (int x = 0; x < inARow; x++)
+            {
+                downDiagonal.Add(new Tuple<int, int>(x, y));
+                y--;
+            }
+
+            return downDiagonal;
+        }
+
+        // Return the contents of the specified square.
+        public Mark GetSquare(int x, int y)
 		{
-            return boardValues[x, y];
+            return grids[x, y].mark;
 		}
 
         // If the specified square is currently empty, fill it with mark and return true.
@@ -52,9 +193,13 @@ namespace comp110_worksheet_6
                 return false;
             }
 
-            if (boardValues[x, y] == Mark.None)
+            if (grids[x, y].mark == Mark.None)
             {
-                boardValues[x, y] = mark;
+                grids[x, y].mark = mark;
+
+                grids[x, y].mark = mark;
+                grids[x, y].gridPosition = new Tuple<int, int>(x, y);
+
                 return true;
             }
 
@@ -69,7 +214,7 @@ namespace comp110_worksheet_6
             {
                 for (int y = 0; y < boardHeight; y++)
                 {
-                    if (boardValues[x, y] == Mark.None)
+                    if (grids[x, y].mark == Mark.None)
                     {
                         return false;
                     }
@@ -83,41 +228,17 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-            CycleThroughAllPositions();
-
-            //return CheckConsecutiveSquares(positionsToCheck.ToArray());
-            return Mark.None;
-        }
-
-        //RENAME LATER
-        private void CycleThroughAllPositions()
-        {
-            for (int x = 0; x <= boardValues.GetLength(0); x++)
+            //DebugGridTile(grids[1, 0]);
+            for (int x = 0; x < grids.GetLength(0); x++)
             {
-                for (int y = 0; y <= boardValues.GetLength(1); y++)
+                for (int y = 0; y < grids.GetLength(1); y++)
                 {
-                    CheckConsecutiveSquares(new Tuple<int, int>(x, y));
-                }
-            }
-        }
-
-        private Mark CheckConsecutiveSquares(Tuple<int, int> positionToCheck)
-        {
-            List<Mark> marks = new List<Mark>();
-
-            for (int xOffset = 0; xOffset < inARow; xOffset++)
-            {
-                for (int yOffset = 0; yOffset < inARow; yOffset++)
-                {
-                    if (positionToCheck.Item1 + xOffset < boardWidth && positionToCheck.Item2 + yOffset < boardHeight)
+                    Mark winnerMark = CheckGridTile(grids[x, y]);
+                    if (winnerMark != Mark.None)
                     {
-                        marks.Add(GetSquare(positionToCheck.Item1 + xOffset, positionToCheck.Item2 + yOffset));
-                        //Console.WriteLine(GetSquare(positionToCheck.Item1 + x, positionToCheck.Item2 + y));
-                        Console.WriteLine(CheckMarks(marks.ToArray()) + "\n");
+                        return winnerMark;
                     }
                 }
-
-                marks = new List<Mark>();
             }
 
             return Mark.None;
