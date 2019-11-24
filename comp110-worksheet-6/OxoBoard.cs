@@ -37,8 +37,9 @@ namespace comp110_worksheet_6
                 Board[x, y] = mark;
                 return true;
             }
-            else return false;
-		}
+
+            return false;
+        }
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
@@ -66,7 +67,7 @@ namespace comp110_worksheet_6
             {
                 if (Board[i, 0] == Board[i, 1] && Board[i, 1] == Board[i, 2])
                 {
-                    return GetSquare(i, 0);
+                    return Board[i, 0];
                 }
             }
 
@@ -75,18 +76,18 @@ namespace comp110_worksheet_6
             {
                 if (Board[0, j] == Board[1, j] && Board[1, j] == Board[2, j])
                 {
-                    return GetSquare(0, j);
+                    return Board[0, j];
                 }
             }
 
             // Diagonals.
             if (Board[0, 0] == Board[1, 1] && Board[1, 1] == Board[2, 2])
             {
-                return GetSquare(0, 0);
+                return Board[0, 0];
             }
             if (Board[2, 0] == Board[1, 1] && Board[1, 1] == Board[0, 2])
             {
-                return GetSquare(2, 0);
+                return [2, 0];
             }
 
             return Mark.None;
