@@ -44,7 +44,7 @@ namespace comp110_worksheet_6
         // If the square is not empty, leave it as-is and return False.
         public bool SetSquare(int x, int y, Mark mark)
         {
-            if (board[x, y] == Mark.None && (x>=0 && x<3) && (y>=0 && y<3))
+            if (board[x, y] == Mark.None)
             {
                 board[x, y] = mark;
                 return true;
@@ -75,26 +75,26 @@ namespace comp110_worksheet_6
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-            //Check for horizontal marks
+            //Check for vertical marks
             for (int i = 0; i < 3; i++)
             {
-                if (GetSquare(0, 0) != Mark.None && board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
+                if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
                     return GetSquare(i, 0);
 
             }
 
-            //Check for vertical marks
+            //Check for horizontal marks
             for (int j = 0; j < 3; j++)
             {
-                if (GetSquare(0, 0) != Mark.None && board[0, j] == board[1, j] && board[1, j] == board[2, j])
+                if (board[0, j] == board[1, j] && board[1, j] == board[2, j])
                     return GetSquare(0, j);
 
             }
 
             //Check for diagonal marks
-            if (GetSquare(0,0)!=Mark.None && board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
+            if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
                 return GetSquare(0, 0);
-            if (GetSquare(0, 0) != Mark.None &&  board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
+            if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
                 return GetSquare(0, 2);
 
 
@@ -106,46 +106,30 @@ namespace comp110_worksheet_6
 
         /*
         public bool isHorizontal(int i, int j)
-
         {
             int counter = 0;
-
             for (int y = 0; y < height; y++)
                 if (board[i, j] == board[i, y])
                     counter++;
-
             if (counter == inARow)
                 return true;
-
             return false;
-
-
         }
-
-
         public bool isVertical(int i, int j)
-
         {
             int counter = 0;
-
             for (int y = 0; y < width; y++)
                 if (board[i, j] == board[i, y])
                     counter++;
-
             if (counter == inARow)
                 return true;
-
             return false;
-
-
         }
-
         
         public bool isDiagonal(int i, int j)
         {
             int counter = 0;
             int k = 1;
-
             for (int y = 1; y <= height + width / 3; y++)
             {
                 if (board[i, j] == board[i + k, i + k])
@@ -154,12 +138,9 @@ namespace comp110_worksheet_6
                     k++;
                 }
             }
-
             if (counter == inARow)
                 return true;
-
             return false;
-
         }
         */
 
@@ -198,4 +179,3 @@ namespace comp110_worksheet_6
         }
     }
 }
-
