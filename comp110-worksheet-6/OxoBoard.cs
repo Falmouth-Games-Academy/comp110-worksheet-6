@@ -10,29 +10,34 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-        public string[,] Board;
+        public Mark[,] Board;
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-            Board = new string[3, 3] { { " ", " ", " " },
-                                       { " ", " ", " " },
-                                       { " ", " ", " " } };
+            Board = new Mark[3, 3] { { 0, 0, 0 },
+                                     { 0, 0, 0 },
+                                     { 0, 0, 0 } };
 
         }
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return Board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            if (Board[x, y] == 0)
+            {
+                Board[x, y] = mark;
+                return true;
+            }
+            else return false;
 		}
 
 		// If there are still empty squares on the board, return false.
