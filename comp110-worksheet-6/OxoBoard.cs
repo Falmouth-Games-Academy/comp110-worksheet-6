@@ -56,39 +56,72 @@ namespace comp110_worksheet_6
         {
             for (int x = 0; x < /*BoardWidth*/3; x++)
             {
-                for (int y = 0; x < /*BoardHeight*/3; y++)
+                for (int y = 0; y < /*BoardHeight*/3; y++)
                 {
                     if (GetSquare(x, y) == Mark.None)
-                        if (x >= 3 || y >= 3) continue;
                         return false;
                 }
             }
             return true;
         }
 
+        private List<Mark> GetMarks(int[,] positions)
+        {
+            List<Mark> result = new List<Mark>(3);
+            for(int i = 0; i < 3; i++)
+            {
+                int x = positions[i,0];
+                int y = positions[i,1];
+                result.Add(GetSquare(x, y));
+            }
+            return result;
+        }
+
+        private bool Every<T>(List<T> list, Func<T, T, bool> predicate)
+        {
+            T last = default(T);
+            for(int i = 0; i < list.Count; i++)
+            {
+                if (predicate(last, list[i]))
+                    return true;
+                last = list[i];
+            }
+            return false;
+        }
+
         // If a player has three in a row, return Mark.O or Mark.X depending on which player.
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-            Mark state = Mark.None;
             for (int win = 0; win < WinConditionCount; win++)
             {
-                var condition = WinConditions[win];
-                for (int col = 0; col < 3; col++)
-                {
-                    Mark square = GetSquare(condition[col, 0], condition[col, 1]);
-                    if (square == Mark.None)
-                        state = square;
-                    else if (square != state)
-                    {
-                        state = Mark.None;
-                        break;
-                    }
-                }
-                if (state != Mark.None)
-                    return state;
+                List<Mark> state = GetMarks(WinConditions[win]);
+                bool result = Every(state, 
+                    (prev, curr) => (curr != Mark.None) && prev == curr
+                );
+                if (result && state[0] != Mark.None) return state[0];
+                continue;
             }
             return Mark.None;
+            //Mark state = Mark.None;
+            //for (int win = 0; win < WinConditionCount; win++)
+            //{
+            //    var condition = WinConditions[win];
+            //    for (int col = 0; col < 3; col++)
+            //    {
+            //        Mark square = GetSquare(condition[col, 0], condition[col, 1]);
+            //        if (square != state)
+            //        {
+            //            state = Mark.None;
+            //            break;
+            //        }
+            //        else if (state == Mark.None)
+            //            state = square;
+            //    }
+            //    if (state != Mark.None)
+            //        return state;
+            //}
+            //return Mark.None;
         }
 
         // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
