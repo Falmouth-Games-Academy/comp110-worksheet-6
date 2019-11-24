@@ -12,7 +12,7 @@ namespace comp110_worksheet_6
     {
         public Mark mark;
         public Tuple<int, int> gridPosition;
-        //I'm so sorry for this monstrosity
+        //I'm so sorry for this nested monstrosity
         public List<List<Tuple<int, int>>> winningPositions = new List<List<Tuple<int, int>>>();
 
         public Grid(Mark mark, Tuple<int, int> gridPosition)
@@ -33,7 +33,7 @@ namespace comp110_worksheet_6
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-        public OxoBoard(int width = 3, int height = 3, int inARow = 3)
+        public OxoBoard(int width = 4, int height = 4, int inARow = 3)
 		{
             grids = new Grid[width, height];
 
@@ -167,12 +167,28 @@ namespace comp110_worksheet_6
         private List<Tuple<int, int>> GetDownDiagonalSolution(Tuple<int, int> gridPos)
         {
             List<Tuple<int, int>> downDiagonal = new List<Tuple<int, int>>();
-            int y = inARow - 1;
+
+            //int y = inARow - 1;
+            //for (int x = 0; x < inARow; x++)
+            //{
+            //    downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 + x, gridPos.Item2 + y));
+            //    y--;
+            //}
+
+            int y = 0;
             for (int x = 0; x < inARow; x++)
             {
-                downDiagonal.Add(new Tuple<int, int>(x, y));
-                y--;
+                //downDiagonal.Add(new Tuple<int, int>(inARow - (gridPos.Item1 - x), inARow - (gridPos.Item2 - y)));
+                downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 - x, gridPos.Item2 + y));
+                y++;
             }
+
+            //int y = inARow - 1;
+            //for (int x = inARow - 1; x >= 0; x--)
+            //{
+            //    downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 - x - y, gridPos.Item2 + y));
+            //    y--;
+            //}
 
             return downDiagonal;
         }
@@ -180,6 +196,11 @@ namespace comp110_worksheet_6
         // Return the contents of the specified square.
         public Mark GetSquare(int x, int y)
 		{
+            if (x > boardWidth - 1 || y > boardHeight - 1 || y < 0 || x < 0)
+            {
+                return Mark.None;
+            }
+
             return grids[x, y].mark;
 		}
 
@@ -188,7 +209,7 @@ namespace comp110_worksheet_6
         public bool SetSquare(int x, int y, Mark mark)
 		{
             //Used to make sure the player doesn't enter anything too high
-            if (x > boardWidth - 1|| y > boardHeight - 1)
+            if (x > boardWidth - 1|| y > boardHeight - 1 || y < 0 || x < 0)
             {
                 return false;
             }
