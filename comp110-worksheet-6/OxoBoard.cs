@@ -78,7 +78,7 @@ namespace comp110_worksheet_6
             //Check for horizontal marks
             for (int i = 0; i < 3; i++)
             {
-                if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
+                if (GetSquare(0, 0) != Mark.None && board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
                     return GetSquare(i, 0);
 
             }
@@ -86,15 +86,15 @@ namespace comp110_worksheet_6
             //Check for vertical marks
             for (int j = 0; j < 3; j++)
             {
-                if (board[0, j] == board[1, j] && board[1, j] == board[2, j])
+                if (GetSquare(0, 0) != Mark.None && board[0, j] == board[1, j] && board[1, j] == board[2, j])
                     return GetSquare(0, j);
 
             }
 
             //Check for diagonal marks
-            if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
+            if (GetSquare(0,0)!=Mark.None && board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
                 return GetSquare(0, 0);
-            if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
+            if (GetSquare(0, 0) != Mark.None &&  board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
                 return GetSquare(0, 2);
 
 
