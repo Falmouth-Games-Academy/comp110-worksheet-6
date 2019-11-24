@@ -8,13 +8,22 @@ namespace comp110_worksheet_6
 {
 	public enum Mark { None, O, X };
 
+    /// <summary>
+    /// Used to store the mark at the current grid position as well as the position itself.
+    /// It also stores all possible combinations of a player win to be checked later. This is so 
+    /// I can dynamically increase the size of the the grid
+    /// </summary>
     public class Grid
     {
         public Mark mark;
         public Tuple<int, int> gridPosition;
-        //I'm so sorry for this nested monstrosity
         public List<List<Tuple<int, int>>> winPositions = new List<List<Tuple<int, int>>>();
 
+        /// <summary>
+        /// A constructor for the Grid class so I can easily assign variables
+        /// </summary>
+        /// <param name="mark"></param>
+        /// <param name="gridPosition"></param>
         public Grid(Mark mark, Tuple<int, int> gridPosition)
         {
             this.mark = mark;
@@ -29,15 +38,27 @@ namespace comp110_worksheet_6
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
+
+        /// <summary>
+        /// The game constructor which assigns the grid size as well as the amount 
+        /// in a row for a player to win.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="inARow"></param>
         public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
             grids = new Grid[width, height];
             this.inARow = inARow;
 
-            InstantiateGrids();
+            PopulateGrid();
 		}
 
-        private void InstantiateGrids()
+        /// <summary>
+        /// Populates the multidimensional array storing the grids class
+        /// and instantiates a new class and assigns the appropriate variables
+        /// </summary>
+        private void PopulateGrid()
         {
             for (int x = 0; x < grids.GetLength(0); x++)
             {
@@ -49,6 +70,15 @@ namespace comp110_worksheet_6
             }
         }
 
+        /// <summary>
+        /// Used to cycle through each Grid's possible combinations and then cycles through
+        /// those combinations to see if they all match one specific mark
+        /// </summary>
+        /// <param name="gridTile"></param>
+        /// <returns>
+        /// If a combination has been met then it returns the mark that won otherwise it
+        /// returns none which states no one has one yet
+        /// </returns>
         private Mark CheckGridTile(Grid gridTile)
         {
             List<Mark> marks;
@@ -75,6 +105,14 @@ namespace comp110_worksheet_6
             return Mark.None;
         }
 
+        /// <summary>
+        /// Acts like a duplicate checker for the marks in an array
+        /// </summary>
+        /// <param name="marks"></param>
+        /// <returns>
+        /// Returns true if all of the marks are the same, but false if 
+        /// there is a duplicate of it, or if any contain none
+        /// </returns>
         private bool IsAllTheSameMarks(Mark[] marks)
         {
             for (int i = 0; i < marks.Length; i++)
@@ -92,8 +130,8 @@ namespace comp110_worksheet_6
         }
 
         /// <summary>
-        /// This is primarily used for testing and seeing which
-        /// possible positions will allow for the player to win
+        /// This is primarily used for testing and seeing which possible positions will
+        /// allow for the player to win
         /// </summary>
         /// <param name="gridTile"></param>
         private void DebugGridTile(Grid gridTile)
@@ -109,6 +147,11 @@ namespace comp110_worksheet_6
             }
         }
 
+        /// <summary>
+        /// Used to assign the possible combinations that include vertical,
+        /// horizontal, diagonal and down diagonal
+        /// </summary>
+        /// <param name="grid"></param>
         private void AssignWinningPositions(Grid grid)
         {
             grid.winPositions.Add(GetHorizontalSolutions(grid.gridPosition));
@@ -117,6 +160,15 @@ namespace comp110_worksheet_6
             grid.winPositions.Add(GetDownDiagonalSolution(grid.gridPosition));
         }
 
+        /// <summary>
+        /// Gets all of the combinations possible using a position that is horizontal on the
+        /// positive x axis since they cycle through all of the xs, so looking behind it isn't
+        /// needed here
+        /// </summary>
+        /// <param name="gridPos"></param>
+        /// <returns>
+        /// Returns a list of tuple combinations for the horizontal aspect
+        /// </returns>
         private List<Tuple<int, int>> GetHorizontalSolutions(Tuple<int, int> gridPos)
         {
             List<Tuple<int, int>> horizontalSet = new List<Tuple<int, int>>();
@@ -130,6 +182,15 @@ namespace comp110_worksheet_6
             return horizontalSet;
         }
 
+        /// <summary>
+        /// Gets all of the combinations possible using a position for the vertical axis
+        /// and is only on the positive y axis since it is checking all of them and therefore
+        /// will never need to look backwards
+        /// </summary>
+        /// <param name="gridPos"></param>
+        /// <returns>
+        /// Returns a list of tuple position combinations for the vertical axis
+        /// </returns>
         private List<Tuple<int, int>> GetVerticalSolutions(Tuple<int, int> gridPos)
         {
             List<Tuple<int, int>> verticalSet = new List<Tuple<int, int>>();
@@ -143,6 +204,17 @@ namespace comp110_worksheet_6
             return verticalSet;
         }
 
+        /// <summary>
+        /// Gets all of the diagonal combinations going up; e.g: (0, 0), (1, 1) (2, 2)...
+        /// </summary>
+        /// <param name="gridPos"></param>
+        /// <remarks>
+        /// I had to separate the UpDiagonal and DownDiagonal due to method of getting the 
+        /// diagonal coordinates being quite different with no solution that I could see
+        /// </remarks>
+        /// <returns>
+        /// Returns a list of tuple position combinations for the upwards diagonal axis
+        /// </returns>
         private List<Tuple<int, int>> GetUpDiagonalSolution(Tuple<int, int> gridPos)
         {
             List<Tuple<int, int>> upDiagonalSet = new List<Tuple<int, int>>();
@@ -155,6 +227,17 @@ namespace comp110_worksheet_6
             return upDiagonalSet;
         }
 
+        /// <summary>
+        /// Gets all of the digonal combinations going downwards; e.g: (0, 2), (1, 1), (2,0)...
+        /// </summary>
+        /// <param name="gridPos"></param>
+        /// <remarks>
+        /// I had to separate the UpDiagonal and DownDiagonal due to method of getting the 
+        /// diagonal coordinates being quite different with no solution that I could see
+        /// </remarks>
+        /// <returns>
+        /// Returns a list of tuple position combinations for the downwards diagonal axis
+        /// </returns>
         private List<Tuple<int, int>> GetDownDiagonalSolution(Tuple<int, int> gridPos)
         {
             List<Tuple<int, int>> downDiagonal = new List<Tuple<int, int>>();
@@ -184,7 +267,7 @@ namespace comp110_worksheet_6
         // If the square is not empty, leave it as-is and return False.
         public bool SetSquare(int x, int y, Mark mark)
 		{
-            //Used to make sure the player doesn't enter anything too high
+            //Used to make sure the player doesn't enter anything too high, or too low below 0
             if (x > grids.GetLength(0) - 1|| y > grids.GetLength(1) - 1 || y < 0 || x < 0)
             {
                 return false;
