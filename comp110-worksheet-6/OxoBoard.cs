@@ -13,7 +13,7 @@ namespace comp110_worksheet_6
         public Mark mark;
         public Tuple<int, int> gridPosition;
         //I'm so sorry for this nested monstrosity
-        public List<List<Tuple<int, int>>> winningPositions = new List<List<Tuple<int, int>>>();
+        public List<List<Tuple<int, int>>> winPositions = new List<List<Tuple<int, int>>>();
 
         public Grid(Mark mark, Tuple<int, int> gridPosition)
         {
@@ -25,21 +25,13 @@ namespace comp110_worksheet_6
     public class OxoBoard
 	{
         private Grid[,] grids;
-
-        private int boardWidth = 3;
-        private int boardHeight = 3;
-
         private int inARow = 3;
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-        public OxoBoard(int width = 4, int height = 4, int inARow = 3)
+        public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
             grids = new Grid[width, height];
-
-            boardWidth = width;
-            boardHeight = height;
-
             this.inARow = inARow;
 
             InstantiateGrids();
@@ -55,16 +47,13 @@ namespace comp110_worksheet_6
                     AssignWinningPositions(grids[x, y]);
                 }
             }
-
-            DebugGridTile(grids[2, 0]);
-            DebugGridTile(grids[0, 2]);
         }
 
         private Mark CheckGridTile(Grid gridTile)
         {
             List<Mark> marks;
 
-            foreach (var winningPositions in gridTile.winningPositions)
+            foreach (var winningPositions in gridTile.winPositions)
             {
                 marks = new List<Mark>();
                 for (int i = 0; i < winningPositions.Count; i++)
@@ -72,24 +61,21 @@ namespace comp110_worksheet_6
                     if (winningPositions[i].Item1 < grids.GetLength(0) && winningPositions[i].Item2 < grids.GetLength(1))
                     {
                         marks.Add(GetSquare(winningPositions[i].Item1, winningPositions[i].Item2));
-                        //Console.WriteLine(GetSquare(winningPositions[i].Item1, winningPositions[i].Item2));
                     }
                     
                 }
                 
-                if (AllMarksTheSame(marks.ToArray()) && marks.Count == inARow)
+                if (IsAllTheSameMarks(marks.ToArray()) && marks.Count == inARow)
                 {
                     Console.WriteLine(marks[0] + " won!");
                     return marks[0];
                 }
-
-                //Console.WriteLine();
             }
 
             return Mark.None;
         }
 
-        private bool AllMarksTheSame(Mark[] marks)
+        private bool IsAllTheSameMarks(Mark[] marks)
         {
             for (int i = 0; i < marks.Length; i++)
             {
@@ -105,13 +91,18 @@ namespace comp110_worksheet_6
             return true;
         }
 
+        /// <summary>
+        /// This is primarily used for testing and seeing which
+        /// possible positions will allow for the player to win
+        /// </summary>
+        /// <param name="gridTile"></param>
         private void DebugGridTile(Grid gridTile)
         {
-            for (int i = 0; i < gridTile.winningPositions.Count; i++)
+            for (int i = 0; i < gridTile.winPositions.Count; i++)
             {
-                for (int j = 0; j < gridTile.winningPositions[i].Count; j++)
+                for (int j = 0; j < gridTile.winPositions[i].Count; j++)
                 {
-                    Console.WriteLine(gridTile.winningPositions[i][j]);
+                    Console.WriteLine(gridTile.winPositions[i][j]);
                 }
 
                 Console.WriteLine();
@@ -120,10 +111,10 @@ namespace comp110_worksheet_6
 
         private void AssignWinningPositions(Grid grid)
         {
-            grid.winningPositions.Add(GetHorizontalSolutions(grid.gridPosition));
-            grid.winningPositions.Add(GetVerticalSolutions(grid.gridPosition));
-            grid.winningPositions.Add(GetUpDiagonalSolution(grid.gridPosition));
-            grid.winningPositions.Add(GetDownDiagonalSolution(grid.gridPosition));
+            grid.winPositions.Add(GetHorizontalSolutions(grid.gridPosition));
+            grid.winPositions.Add(GetVerticalSolutions(grid.gridPosition));
+            grid.winPositions.Add(GetUpDiagonalSolution(grid.gridPosition));
+            grid.winPositions.Add(GetDownDiagonalSolution(grid.gridPosition));
         }
 
         private List<Tuple<int, int>> GetHorizontalSolutions(Tuple<int, int> gridPos)
@@ -168,27 +159,12 @@ namespace comp110_worksheet_6
         {
             List<Tuple<int, int>> downDiagonal = new List<Tuple<int, int>>();
 
-            //int y = inARow - 1;
-            //for (int x = 0; x < inARow; x++)
-            //{
-            //    downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 + x, gridPos.Item2 + y));
-            //    y--;
-            //}
-
             int y = 0;
             for (int x = 0; x < inARow; x++)
             {
-                //downDiagonal.Add(new Tuple<int, int>(inARow - (gridPos.Item1 - x), inARow - (gridPos.Item2 - y)));
                 downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 - x, gridPos.Item2 + y));
                 y++;
             }
-
-            //int y = inARow - 1;
-            //for (int x = inARow - 1; x >= 0; x--)
-            //{
-            //    downDiagonal.Add(new Tuple<int, int>(gridPos.Item1 - x - y, gridPos.Item2 + y));
-            //    y--;
-            //}
 
             return downDiagonal;
         }
@@ -196,7 +172,7 @@ namespace comp110_worksheet_6
         // Return the contents of the specified square.
         public Mark GetSquare(int x, int y)
 		{
-            if (x > boardWidth - 1 || y > boardHeight - 1 || y < 0 || x < 0)
+            if (x > grids.GetLength(0) - 1 || y > grids.GetLength(1) - 1 || y < 0 || x < 0)
             {
                 return Mark.None;
             }
@@ -209,7 +185,7 @@ namespace comp110_worksheet_6
         public bool SetSquare(int x, int y, Mark mark)
 		{
             //Used to make sure the player doesn't enter anything too high
-            if (x > boardWidth - 1|| y > boardHeight - 1 || y < 0 || x < 0)
+            if (x > grids.GetLength(0) - 1|| y > grids.GetLength(1) - 1 || y < 0 || x < 0)
             {
                 return false;
             }
@@ -231,9 +207,9 @@ namespace comp110_worksheet_6
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
         {
-            for (int x = 0; x < boardWidth; x++)
+            for (int x = 0; x < grids.GetLength(0); x++)
             {
-                for (int y = 0; y < boardHeight; y++)
+                for (int y = 0; y < grids.GetLength(1); y++)
                 {
                     if (grids[x, y].mark == Mark.None)
                     {
@@ -249,7 +225,6 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-            //DebugGridTile(grids[1, 0]);
             for (int x = 0; x < grids.GetLength(0); x++)
             {
                 for (int y = 0; y < grids.GetLength(1); y++)
@@ -265,34 +240,15 @@ namespace comp110_worksheet_6
             return Mark.None;
         }
 
-        private Mark CheckMarks(Mark[] marks)
-        {
-            //Checking for a duplicate
-            for (int i = 0; i < marks.Length; i++)
-            {
-                for (int j = 0; j < marks.Length; j++)
-                {
-                    if (marks[i] != marks[j])
-                    {
-                        Console.WriteLine(marks[i] + "\n" + marks[j]);
-                        return Mark.None;
-                    }
-                }
-            }
-
-            Console.WriteLine(marks.Length);
-            return marks[0];
-        }
-
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
 		{
-			for (int y = 0; y < boardHeight; y++)
+			for (int y = 0; y < grids.GetLength(1); y++)
 			{
 				if (y > 0)
 					Console.WriteLine("--+---+--");
 
-				for (int x = 0; x < boardWidth; x++)
+				for (int x = 0; x < grids.GetLength(0); x++)
 				{
 					if (x > 0)
 						Console.Write(" | ");
