@@ -75,7 +75,7 @@ namespace comp110_worksheet_6
             {
                 if (Board[0, j] == Board[1, j] && Board[1, j] == Board[2, j])
                 {
-                    return GetSquare(j, 0);
+                    return GetSquare(0, j);
                 }
             }
 
