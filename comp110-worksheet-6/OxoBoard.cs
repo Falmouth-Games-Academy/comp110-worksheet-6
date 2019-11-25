@@ -72,33 +72,49 @@ namespace comp110_worksheet_6
 
         private bool CheckDiagonals(int x, int y)
         {
-            int i = 1;
             bool checkLeft = true;
             bool checkRight = true;
             bool winCondition = false;
             // Check down and right diagonals.
             // Only need to check downwards diagonals to still check every possibility.
-            if (board[x + 1, y + 1] == Mark.O)
+            int testX = x;
+            int testY = y;
+            testX++;
+            testY++;
+            if (testX < board.GetLength(0) && testY < board.GetLength(1))
             {
-                int symbolCount = 2;
-                do
+                if (board[testX, testY] == Mark.O)
                 {
-                    i++;
-                    if (board[x + i, y + i] == Mark.O)
+                    int symbolCount = 2;
+                    do
                     {
-                        symbolCount++;
-                    } else
-                    {
-                        checkRight = false;
-                    }
+                        testX++;
+                        testY++;
+                        if (testX < board.GetLength(0) && testY < board.GetLength(1))
+                        {
+                            if (board[testX, testY] == Mark.O)
+                            {
+                                symbolCount++;
+                            } 
+                            else
+                            {
+                                checkRight = false;
+                            }
 
-                    if (symbolCount == itemsInARow)
-                    {
-                        winCondition = true;
-                    }
+                            if (symbolCount == itemsInARow)
+                            {
+                                winCondition = true;
+                            }
+                        }
+                        else
+                        {
+                            checkRight = false;
+                        }
 
-                } while (checkRight || !winCondition);
+                    } while (checkRight && !winCondition);
+                }
             }
+            
 
             // If that was a win we don't need to check down and left diagonals so return the win.
             if (winCondition)
@@ -107,27 +123,41 @@ namespace comp110_worksheet_6
             }
 
             // Otherwise we check the down and left diagonals.
-            if (board[x - 1, y + 1] == Mark.O)
+            testX = x--;
+            testY = y++;
+
+            if (testX > 0 && testY < board.GetLength(1))
             {
-                int symbolCount = 2;
-                do
+                if (board[testX, testY] == Mark.O)
                 {
-                    i++;
-                    if (board[x - i, y + i] == Mark.O)
+                    int symbolCount = 2;
+                    do
                     {
-                        symbolCount++;
-                    } else
-                    {
-                        checkLeft = false;
-                    }
+                        testX--;
+                        testY++;
+                        if (testX > 0 && testY < board.GetLength(1))
+                        {
+                            if (board[testX, testY] == Mark.O)
+                            {
+                                symbolCount++;
+                            } else
+                            {
+                                checkLeft = false;
+                            }
 
-                    if (symbolCount == itemsInARow)
-                    {
-                        winCondition = true;
-                    }
+                            if (symbolCount == itemsInARow)
+                            {
+                                winCondition = true;
+                            }
+                        }
+                        else
+                        {
+                            checkLeft = false;
+                        }
 
-                } while (checkLeft || !winCondition);
-            }
+                    } while (checkLeft && !winCondition);
+                }
+            }               
 
             return winCondition;
         }
@@ -199,9 +229,9 @@ namespace comp110_worksheet_6
             playerXCount = 0;
             playerOCount = 0;
             // Checks for diagonals.
-            for (int x = 0; x < board.GetLength(1); x++)
+            for (int x = 0; x < board.GetLength(0); x++)
             {
-                for (int y = 0; y < board.GetLength(0); y++)
+                for (int y = 0; y < board.GetLength(1); y++)
                 {
                     if (board[x, y] == Mark.O)
                     {
