@@ -85,7 +85,7 @@ namespace comp110_worksheet_6
             {
                 if (board[testX, testY] == Mark.O)
                 {
-                    int symbolCount = 2;
+                    int symbolCount = 1;
                     do
                     {
                         testX++;
@@ -130,7 +130,7 @@ namespace comp110_worksheet_6
             {
                 if (board[testX, testY] == Mark.O)
                 {
-                    int symbolCount = 2;
+                    int symbolCount = 1;
                     do
                     {
                         testX--;
@@ -200,11 +200,11 @@ namespace comp110_worksheet_6
 			playerOCount = 0;
 
 			// Checks the board vertically for x in a row
-			for (int y = 0; y < board.GetLength(0); y++)
+			for (int y = 0; y < board.GetLength(1); y++)
 			{
                 playerXCount = 0;
                 playerOCount = 0;
-                for (int x = 0; x < board.GetLength(1); x++)
+                for (int x = 0; x < board.GetLength(0); x++)
 				{
 					if (board[x, y] == Mark.O)
 					{
