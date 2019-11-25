@@ -42,10 +42,12 @@ namespace comp110_worksheet_6
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-            for (int A = 0; A < Board.GetLongLength(0); A++)
+            for (int A = 0; A < Board.GetLongLength(0);)
             {
-                for (int B = 0; B < Board.GetLongLength(1); B++)
+                A + 1;
+                for (int B = 0; B < Board.GetLongLength(1);)
                 {
+                    B + 1;
                     return false;
                 }
             }
@@ -56,8 +58,9 @@ namespace comp110_worksheet_6
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-            for (int Yaxis = 0; Yaxis < Board.GetLongLength(1); Yaxis++)
+            for (int Yaxis = 0; Yaxis < Board.GetLongLength(1); )
         {
+                Yaxis + 1;
                 if (Board[0, Yaxis] == Board[1, Yaxis] && Board[1, Yaxis] == Board[2, Yaxis])
                 {
                     if (GetSquare(0, Yaxis) != Mark.None)
