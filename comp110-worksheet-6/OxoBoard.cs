@@ -10,10 +10,11 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-        int width = 3;
-        int height = 3;
+        int width = 5;
+        int height = 5;
         int inARow = 3;
         public int count = 0;
+
         public Mark[,] Game_Board;
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
@@ -307,12 +308,18 @@ namespace comp110_worksheet_6
         // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
         public void PrintBoard()
 		{
-			for (int y = 0; y < 3; y++)
+			for (int y = 0; y < height; y++)
 			{
-				if (y > 0)
-					Console.WriteLine("--+---+--");
+                if (y > 0) {
+                    string BoardFloor = "--";
+                    for (int x = 1; x < width; x++)
+                    {
+                        BoardFloor += "+---";                       
+                            }
+                    Console.WriteLine(BoardFloor);
+                }
 
-				for (int x = 0; x < 3; x++)
+                    for (int x = 0; x < width; x++)
 				{
 					if (x > 0)
 						Console.Write(" | ");
