@@ -35,6 +35,7 @@ namespace comp110_worksheet_6
 	{
         private Grid[,] grids;
         private int inARow = 3;
+        private string horizontalASCII = "--+---+--";
 
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
@@ -52,6 +53,7 @@ namespace comp110_worksheet_6
             this.inARow = inARow;
 
             PopulateGrid();
+            horizontalASCII = GetHorizontalString();
 		}
 
         /// <summary>
@@ -324,13 +326,15 @@ namespace comp110_worksheet_6
         }
 
         //Display the current board state in the terminal.You should only need to edit this if you are attempting the stretch goal.
-
+        /// <summary>
+        /// Generates the board and will now scale with the width and height
+        /// </summary>
         public void PrintBoard()
         {
             for (int y = 0; y < grids.GetLength(1); y++)
             {
                 if (y > 0)
-                    Console.WriteLine("--+---+--");
+                    Console.WriteLine(horizontalASCII);
 
                 for (int x = 0; x < grids.GetLength(0); x++)
                 {
@@ -350,6 +354,33 @@ namespace comp110_worksheet_6
 
                 Console.WriteLine();
             }
+        
+        }
+
+        private string GetHorizontalString()
+        {
+            string twoHorizontal = "--";
+            string threeHorizontal = "---";
+
+            string combinedString = "";
+
+            for (int i = 0; i < inARow + 2; i++)
+            {
+                if (i == 0 || i == inARow + 1)
+                {
+                    combinedString += twoHorizontal;
+                    if (i == 0)
+                    {
+                        combinedString += "+";
+                    }
+                    continue;
+                }
+
+                combinedString += threeHorizontal;
+                combinedString += "+";
+            }
+
+            return combinedString;
         }
     }
 }
