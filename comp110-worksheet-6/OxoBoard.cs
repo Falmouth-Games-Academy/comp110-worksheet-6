@@ -71,68 +71,26 @@ namespace comp110_worksheet_6
                 // Otherwise, return Mark.None.
                 public Mark GetWinner()
                 {
-            
-                    if (Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[2, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
+                    Mark GetWinner(Mark player)
+                    {
+                         // check rows
+                        if (tictacktoe[0, 0] == player && tictacktoe[0, 1] == player && tictacktoe[0, 2] == player) { return true; }
+                        if (tictacktoe[1, 0] == player && tictacktoe[1, 1] == player && tictacktoe[1, 2] == player) { return true; }
+                        if (tictacktoe[2, 0] == player && tictacktoe[2, 1] == player && tictacktoe[2, 2] == player) { return true; }
+
+                        // check columns
+                        if (tictacktoe[0, 0] == player && tictacktoe[1, 0] == player && tictacktoe[2, 0] == player) { return true; }
+                        if (tictacktoe[0, 1] == player && tictacktoe[1, 1] == player && tictacktoe[2, 1] == player) { return true; }
+                        if (tictacktoe[0, 2] == player && tictacktoe[1, 2] == player && tictacktoe[2, 2] == player) { return true; }
+
+                        // check diags
+                        if (tictacktoe[0, 0] == player && tictacktoe[1, 1] == player && tictacktoe[2, 2] == player) { return true; }
+                        if (tictacktoe[0, 2] == player && tictacktoe[1, 1] == player && tictacktoe[2, 0] == player) { return true; }
+
+                        return false;
                     }
-                    else if (Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[0, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
-        
-                    else if (Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[2, 0]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[0, 1]&&Mark.O == tictacktoe[0, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[1, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.O == tictacktoe[2, 0]&&Mark.O == tictacktoe[2, 1]&&Mark.O == tictacktoe[2, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
-                    
-                    else if (Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[2, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
 
-                    else if (Mark.X == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[0, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
-        
-                    else if (Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[2, 0]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[0, 1] &&Mark.O == tictacktoe [0, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.X == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[1, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit(); 
-                    else if (Mark.X == tictacktoe[2, 0]&&Mark.O == tictacktoe[2, 1]&&Mark.O == tictacktoe[2, 2]){
-                    Console.WriteLine("You Win");
-                    Console.ReadLine();
-                    //Application.Exit();
-                    
-                   }
-              else {
-               return Mark.None;
-    `         }
-    
-		}           
-
+                }  
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
 		{
