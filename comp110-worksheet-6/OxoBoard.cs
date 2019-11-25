@@ -74,9 +74,44 @@ namespace comp110_worksheet_6
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-
-
-
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    if (numberMatrix[x, 0] == Mark.X && numberMatrix[x, 1] == Mark.X && numberMatrix[x, 2] == Mark.X)
+                    {
+                        return Mark.X;
+                    }
+                    else if (numberMatrix[0, y] == Mark.X && numberMatrix[1, y] == Mark.X && numberMatrix[2, y] == Mark.X)
+                    {
+                        return Mark.X;
+                    }
+                    else if (numberMatrix[x, 0] == Mark.O && numberMatrix[x, 1] == Mark.O && numberMatrix[x, 2] == Mark.O)
+                    {
+                        return Mark.O;
+                    }
+                    else if (numberMatrix[0, y] == Mark.O && numberMatrix[1, y] == Mark.O && numberMatrix[2, y] == Mark.O)
+                    {
+                        return Mark.O;
+                    }    
+                }         
+            }
+            if (numberMatrix[0, 0] == Mark.X && numberMatrix[1, 1] == Mark.X && numberMatrix[2, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (numberMatrix[0, 2] == Mark.X && numberMatrix[1, 1] == Mark.X && numberMatrix[2, 0] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (numberMatrix[0, 0] == Mark.O && numberMatrix[1, 1] == Mark.O && numberMatrix[2, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (numberMatrix[0, 2] == Mark.O && numberMatrix[1, 1] == Mark.O && numberMatrix[2, 0] == Mark.O)
+            {
+                return Mark.O;
+            }
             // throw new NotImplementedException("TODO: implement this function and then remove this exception");
         }
 
