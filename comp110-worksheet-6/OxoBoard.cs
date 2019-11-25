@@ -31,7 +31,14 @@ namespace comp110_worksheet_6
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-            return board[x][y];
+            try
+            {
+                return board[x][y];
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                return Mark.X;
+            }
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
