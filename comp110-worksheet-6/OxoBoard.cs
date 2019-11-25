@@ -14,13 +14,14 @@ namespace comp110_worksheet_6
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
 		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            string[,] Board = new string[2, 2];
+            return Board;
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return Board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
