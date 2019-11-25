@@ -257,12 +257,16 @@ namespace comp110_worksheet_6
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
 		{
-            string horizontalSeperator = "--+";
+            string horizontalSeperator = "--";
+            for (int x = 1; x < board.GetLength(0); x++)
+            {
+                horizontalSeperator += "+---";
+            }
 
 			for (int y = 0; y < board.GetLength(1); y++)
 			{
 				if (y > 0)
-					Console.WriteLine("--+---+--");
+					Console.WriteLine(horizontalSeperator);
 
 				for (int x = 0; x < board.GetLength(0); x++)
 				{
