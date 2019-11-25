@@ -55,7 +55,7 @@ namespace comp110_worksheet_6
 					Console.WriteLine("Enter a square in the form x,y:");
 					square = InputSquare();
 				}
-				
+				    
 				// Try to play the move
 				if (board.SetSquare(square.Item1, square.Item2, currentPlayer))
 				{

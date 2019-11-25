@@ -95,7 +95,7 @@ namespace comp110_worksheet_6
 		{
             Mark winner = Mark.None;
 
-            // Check the Lines of the board.
+            // Check the Columns of the board.
             foreach (List<Mark> line in board)
             {
                 if (winner == Mark.None)
@@ -105,17 +105,17 @@ namespace comp110_worksheet_6
             }
 
             
-            // Check the Columns of the board.
+            // Check the Rows of the board.
             for (int i = 0; i < board.Count; i++)
             {
                 if (winner == Mark.None)
                 {
-                    List<Mark> column = new List<Mark>();
+                    List<Mark> row = new List<Mark>();
                     for (int j = 0; j < board[i].Count; j++)
                     {
-                        column.Add(board[i][j]);
+                        row.Add(board[j][i]);
                     }
-                    winner = checkLine(column);
+                    winner = checkLine(row);
                 }
             }
 
