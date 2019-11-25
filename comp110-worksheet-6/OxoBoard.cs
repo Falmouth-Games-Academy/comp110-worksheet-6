@@ -17,7 +17,7 @@ namespace comp110_worksheet_6
 
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(int width = 3, int height = 3, int inARow = 3)
+		public OxoBoard(int width = 5, int height = 5, int inARow = 3)
 		{
 			//Assigning values to variables
 			board = new Mark[width, height];
@@ -173,13 +173,13 @@ namespace comp110_worksheet_6
 			}
 
 			//Similar function to last that instead checks the opposite direction along the board.
-			for (int vertical = 0; vertical < board.GetLongLength(1) - 1; vertical++)
+			for (int vertical = 0; vertical < board.GetLongLength(1); vertical++)
 			{
 				int inCommon = 1;
 				int tempVertical = vertical;
 				for (int horizontal = 0; horizontal < board.GetLongLength(0) - 1; horizontal++)
 				{
-					if (tempVertical - 1 > 0 && vertical + 1 < board.GetLongLength(1))
+					if (tempVertical - 1 > -1 && horizontal + 1 < board.GetLongLength(0))
 					{
 						if (board[horizontal, tempVertical] == board[horizontal + 1, tempVertical - 1])
 						{
@@ -197,9 +197,9 @@ namespace comp110_worksheet_6
 						{
 							inCommon = 1;
 						}
-						if (tempVertical < board.GetLongLength(1) - 1)
+						if (tempVertical > 1)
 						{
-							tempVertical++;
+							tempVertical--;
 						}
 					}
 				}
