@@ -47,7 +47,7 @@ namespace comp110_worksheet_6
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="inARow"></param>
-        public OxoBoard(int width = 5, int height = 5, int inARow = 3)
+        public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
             grids = new Grid[width, height];
             this.inARow = inARow;
