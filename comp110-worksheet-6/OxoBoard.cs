@@ -10,10 +10,14 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
+        int width = 3;
+        int height = 3;
+        int inARow = 3;
+        public int count = 0;
         public Mark[,] Game_Board;
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(int width = 3, int height = 3 /*, int inARow = 3*/)
+		public OxoBoard()
 		{
             Game_Board = new Mark[width, height];
 
@@ -51,9 +55,9 @@ namespace comp110_worksheet_6
 		public bool IsBoardFull()
 		{
 
-            for (int x = 0; x < Game_Board.Length; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < Game_Board.Length; y++)
+                for (int y = 0; y < height; y++)
                 {
                     if (Game_Board[x, y] == Mark.None)
                         return false; 
@@ -63,15 +67,245 @@ namespace comp110_worksheet_6
             return true;
 		}
 
-		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
-		// Otherwise, return Mark.None.
-		public Mark GetWinner()
-		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+        // If a player has three in a row, return Mark.O or Mark.X depending on which player.
+        // Otherwise, return Mark.None.
+        public Mark GetWinner()
+        {
 
-		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
-		public void PrintBoard()
+
+
+            // check for X
+            // Checks columns
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    // New variables so they dont change x,y for current start tile checking
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (y_check >= height)
+                        { break; }
+                        if (Game_Board[x, y_check] == Mark.X)
+
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.X;
+                            }
+                            y_check++;
+                        }
+
+                        else break;
+                    }
+
+                }
+            }
+
+            //Checks rows
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int x_check = x;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width)
+                        { break; }
+                        if (Game_Board[x_check, y] == Mark.X)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.X;
+                            }
+                            x_check++;
+                        }
+
+                        else break;
+                    }
+
+
+                }
+            }
+
+
+            //Checks for diagonals
+            //Checking for x+ and y+
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int x_check = x;
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width || y_check >= height)
+                        { break; }
+                        if (Game_Board[x_check, y_check] == Mark.X)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.X;
+                            }
+                            x_check++;
+                            y_check++;
+                        }
+
+                        else break;
+                    }
+
+                }
+            }
+
+            //Checking for x+ and y-
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int x_check = x;
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width || y_check >= height || y_check < 0)
+                        { break; }
+                        if (Game_Board[x_check, y_check] == Mark.X)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.X;
+                            }
+                            x_check++;
+                            y_check--;
+                        }
+
+                        else break;
+                    }
+                }
+            }
+
+            //check for O
+
+            // Checks columns
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (y_check >= height)
+                        { break; }
+                        if (Game_Board[x, y_check] == Mark.O)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.O;
+                            }
+                            y_check++;
+                        }
+
+                        else break;
+                    }
+
+                }
+            }
+
+            //Checks rows
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int x_check = x;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width)
+                        { break; }
+                        if (Game_Board[x_check, y] == Mark.O)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.O;
+                            }
+                            x_check++;
+                        }
+
+                        else break;
+                    }
+
+
+                }
+            }
+
+
+            //Checks for diagonals
+            //Checking for x+ and y+
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int x_check = x;
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width || y_check >= height)
+                        { break; }
+                        if (Game_Board[x_check, y_check] == Mark.O)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.O;
+                            }
+                            x_check++;
+                            y_check++;
+                        }
+
+                        else break;
+                    }
+
+                }
+            }
+
+            //Checking for x+ and y-
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int x_check = x;
+                    int y_check = y;
+                    for (count = 1; count <= inARow; count++)
+                    {
+                        if (x_check >= width || y_check >= height || y_check < 0)
+                        { break; }
+                        if (Game_Board[x_check, y_check] == Mark.O)
+                        {
+                            if (count == inARow)
+                            {
+                                return Mark.O;
+                            }
+                            x_check++;
+                            y_check--;
+                        }
+
+                        else break;
+                    }
+
+                }
+            }
+
+
+            return Mark.None;
+        }
+
+        // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
+        public void PrintBoard()
 		{
 			for (int y = 0; y < 3; y++)
 			{
