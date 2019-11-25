@@ -7,23 +7,24 @@ using System.Threading.Tasks;
 namespace comp110_worksheet_6
 {
 	public enum Mark { None, O, X };
+    // Enums used to return what tile is filled with what marker
 
     
 	public class OxoBoard
 	{
         public Mark[,] boardArray;
+        // Array of Mark Enums set up to represent the board, Array is 2D due to board being 3x3
 
-        // Constructor. Perform any necessary data initialisation here.
-        // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+        // Creating the board and setting each tile as empty
+        public OxoBoard()
 		{
-            //throw new NotImplementedException("TODO: implement this function and then remove this exception");
-
             boardArray = new Mark[3, 3];
+            // 2 For loops used to go through each row and collum of board
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
                 {
+                    // Then for each tile of the board it is set as empty
                     boardArray[x, y] = Mark.None;
                 }
             }
@@ -32,11 +33,20 @@ namespace comp110_worksheet_6
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            if(boardArray[x, y] != null)
+            {
+                // Returns what it inside the tile being checked
+                return boardArray[x, y];
+            }
+            else
+            {
+                // Returns that the tile is empty if cords are outside the board
+                return Mark.None;
+            }
+           
+           
 
-            return boardArray[x, y];
-
-            // if cords are not on board
+        
 
 		}
 
@@ -44,24 +54,27 @@ namespace comp110_worksheet_6
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-
+            // If statement that checks if cords are inside the board
             if((x >= 0 && x <= 2) && (y >= 0 && y <= 2))
             {
                 if (boardArray[x, y] == Mark.None)
                 {
                     boardArray[x, y] = mark;
                     return true;
+                    // Returns true if board tile was empty and was now replaced by X or O
                 }
                 else
                 {
                     return false;
+                    // Returns flase if tile was already occupied and leaves tile as is
                 }
             }
             else
             {
                 return false;
+                // Returns false as invalid move if player inputted cords that were off the 3x3 grid
             }
-            //throw new NotImplementedException("TODO: implement this function and then remove this exception");
+          
             
 
             
@@ -72,30 +85,35 @@ namespace comp110_worksheet_6
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-            //throw new NotImplementedException("TODO: implement this function and then remove this exception");
-            int filledtiles = 0;
+            int filledTiles = 0;
+            // Int set for amount of tiles that are filled
 
+            // For loops used again to check every tile on the 3x3 grid
             for (int x = 0; x < 3; x++)
             {
                 for (int y = 0; y < 3; y++)
                 {
                     if(boardArray[x , y] == Mark.None)
                     {
-                        //empty
+                        // Board is empty on this tile
                     }
                     else
                     {
-                        filledtiles++;
+                        filledTiles++;
+                        // Board tile is occupied
                     }
                 }
             }
 
-            if(filledtiles < 9)
+            // After checking every tile if all tiles are filled filedTiles will be 9
+            if(filledTiles < 9)
             {
+                // If there is not 9 filledTiles the board still has spaces
                 return false;
             }
             else
             {
+                // Else if there is 9 filledTiles then the board is full
                 return true;
             }
         }
@@ -104,10 +122,11 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			//throw new NotImplementedException("TODO: implement this function and then remove this exception");
 
+            // Here I use if statements to check every possible way of winning
+            // Quite inefficent but still works for determining every winning outcome on a 3x3 grid
 
-            // X left to right
+            // X Horizontal
             if(boardArray[0,0] == Mark.X && boardArray[1, 0] == Mark.X && boardArray[2, 0] == Mark.X)
             {
                 return Mark.X;
@@ -121,7 +140,7 @@ namespace comp110_worksheet_6
                 return Mark.X;
             }
 
-            // O left to right 
+            // O Horizontal
             else if (boardArray[0, 0] == Mark.O && boardArray[1, 0] == Mark.O && boardArray[2, 0] == Mark.O)
             {
                 return Mark.O;
@@ -135,7 +154,7 @@ namespace comp110_worksheet_6
                 return Mark.O;
             }
 
-            // X Top to bottom
+            // X Vertical
 
             else if (boardArray[0, 0] == Mark.X && boardArray[0, 1] == Mark.X && boardArray[0, 2] == Mark.X)
             {
@@ -150,7 +169,7 @@ namespace comp110_worksheet_6
                 return Mark.X;
             }
 
-            // O     Top to bottom
+            // O Vertical
 
             else if (boardArray[0, 0] == Mark.O && boardArray[0, 1] == Mark.O && boardArray[0, 2] == Mark.O)
             {
@@ -165,7 +184,7 @@ namespace comp110_worksheet_6
                 return Mark.O;
             }
 
-            //  Diagonal
+            // X Diagonal
 
             else if (boardArray[0, 0] == Mark.X && boardArray[1, 1] == Mark.X && boardArray[2, 2] == Mark.X)
             {
