@@ -10,39 +10,73 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-		// Constructor. Perform any necessary data initialisation here.
+        // Constructor. Perform any necessary data initialisation here.
+        Mark[,] Board;
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+		public OxoBoard (int width = 3, int height = 3, int inARow = 3)
 		{
-            int[] Board = new int[2];
+            Board = new Mark[width, height];
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            return Board[x, y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            if (x < Board.GetLongLength(0) && y < Board.GetLongLength(1) && x > -1 && y > -1)
+            {
+                if (Board[x, y] == Mark.None)
+                {
+                    Board[x, y] = mark;
+                }
+            }
+            return false;
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            for (int A = 0; A < Board.GetLongLength(0); A++)
+            {
+                for (int B = 0; B < Board.GetLongLength(1); B++)
+                {
+                    return false;
+                }
+            }
+           return true;
 		}
 
-		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
-		// Otherwise, return Mark.None.
-		public Mark GetWinner()
-		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+        // If a player has three in a row, return Mark.O or Mark.X depending on which player.
+        // Otherwise, return Mark.None.
+        public Mark GetWinner()
+        {
+            for (int Yaxis = 0; Yaxis < Board.GetLongLength(1); Yaxis++)
+        {
+                if (Board[0, Yaxis] == Board[1, Yaxis] && Board[1, Yaxis] == Board[2, Yaxis])
+                {
+                    if (GetSquare(0, Yaxis) != Mark.None)
+                    {
+                        return GetSquare(0 ,Yaxis);
+                    }
+                }
+            }
+            if (Board[0, 0] == Board[1, 1] && Board[1, 1] == Board[2, 2])
+            {
+                return GetSquare(0, 0);
+            }
+            if (Board[2, 0] == Board[1, 1] && Board[1, 1] == Board[0, 2])
+            {
+                return GetSquare(2, 0);
+            }
+            return Mark.None;
+        }
+
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
