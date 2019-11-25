@@ -6,42 +6,165 @@ using System.Threading.Tasks;
 
 namespace comp110_worksheet_6
 {
-	public enum Mark { None, O, X };
+	public enum Mark { None, O, X };   
 
-	public class OxoBoard
+    public class OxoBoard
 	{
-		// Constructor. Perform any necessary data initialisation here.
-		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+        public Mark[,] Squares;
+
+        // Constructor. Perform any necessary data initialisation here.
+        // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
+        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            Squares = new Mark[3, 3];
+
+            for (int y = 0; y < 3; y++)
+            {
+                for (int x = 0; x < 3; x++)
+                {
+                    Squares[x, y] = Mark.None;
+                }
+            }
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            Mark value = Squares[x, y];
+            return value;
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            bool taken;
+
+            if (Squares[x, y] == Mark.None)
+            {
+                Squares[x, y] = mark;
+                taken = true;
+            }
+
+            else
+            {
+                taken = false;
+            }
+
+            return taken;
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
-		}
+            bool full;
+            int remaining = 0;
+
+            for (int y = 0; y < 3; y++)
+            {
+                for (int x = 0; x < 3; x++)
+                {
+                    if (Squares[x, y] == Mark.None)
+                    {
+                        remaining++;
+                    }
+                }
+            }
+
+            if (remaining > 0)
+            {
+                full = false;
+            }
+
+            else
+            {
+                full = true;
+            }
+
+            return full;
+        }
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+            Mark winner = Mark.None;
+
+            //all x
+            for (int x = 0; x < 3; x++)
+            {
+                int Xrow = 0;
+                int Orow = 0;
+
+                for (int y = 0; y < 3; y++)
+                {
+                    if (Squares[x, y] == Mark.X)
+                    {
+                        Xrow++;
+                    }
+
+                    else if (Squares[x, y] == Mark.O)
+                    {
+                        Orow++;
+                    }
+
+                    if(Xrow == 3)
+                    {
+                        winner = Mark.X;
+                    }
+
+                    if (Orow == 3)
+                    {
+                        winner = Mark.O;
+                    }
+                }
+            }
+
+            //all y
+            for (int y = 0; y < 3; y++)
+            {
+                int Xrow = 0;
+                int Orow = 0;
+
+                for (int x = 0; x < 3; x++)
+                {
+                    if (Squares[x, y] == Mark.X)
+                    {
+                        Xrow++;
+                    }
+
+                    else if (Squares[x, y] == Mark.O)
+                    {
+                        Orow++;
+                    }
+
+                    if (Xrow == 3)
+                    {
+                        winner = Mark.X;
+                    }
+
+                    if (Orow == 3)
+                    {
+                        winner = Mark.O;
+                    }
+                }
+            }
+
+
+            //down diagonal
+            if (Squares[0,0] == Squares[1,1] && Squares[0, 0] == Squares[2, 2])
+            {
+                winner = Squares[0, 0];
+            }
+
+            //up diagonal
+            if (Squares[0, 2] == Squares[1, 1] && Squares[0, 2] == Squares[2, 0])
+            {
+                winner = Squares[0, 2];
+            }
+
+            return winner;
 		}
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
