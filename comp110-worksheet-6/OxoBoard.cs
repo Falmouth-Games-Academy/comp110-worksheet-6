@@ -10,8 +10,8 @@ namespace comp110_worksheet_6
 
 	public class OxoBoard
 	{
-        int width = 5;
-        int height = 5;
+        int width = 3;
+        int height = 3;
         int inARow = 3;
         public int count = 0;
 
