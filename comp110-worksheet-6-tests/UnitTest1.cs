@@ -32,7 +32,7 @@ namespace comp110_worksheet_6_tests
 		{
 			for (int y = 0; y < 3; y++)
 				for (int x = 0; x < 3; x++)
-					Assert.AreEqual(board.GetSquare(x, y), MarkFromChar(expected[y * 3 + x]));
+					Assert.AreEqual(MarkFromChar(expected[y * 3 + x]), board.GetSquare(x, y));
 		}
 
 		[Test]
@@ -46,7 +46,7 @@ namespace comp110_worksheet_6_tests
 		public void TestEmptyBoardNoWinner()
 		{
 			var board = new OxoBoard();
-			Assert.AreEqual(board.GetWinner(), Mark.None);
+			Assert.AreEqual(Mark.None, board.GetWinner());
 		}
 
 		[Test]
@@ -75,14 +75,14 @@ namespace comp110_worksheet_6_tests
 		{
 			var board = new OxoBoard();
 			Assert.IsTrue(board.SetSquare(x1, y1, p1));
-			Assert.AreEqual(board.GetWinner(), Mark.None);
+			Assert.AreEqual(Mark.None, board.GetWinner());
 
 			Mark p2 = (p1 == Mark.O) ? Mark.X : Mark.O;
 
 			if (x1 == x2 && y1 == y2)
 			{
 				Assert.IsFalse(board.SetSquare(x2, y2, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 				StringBuilder expected = new StringBuilder(".........");
 				expected[y1 * 3 + x1] = CharFromMark(p1);
 				CompareBoard(board, expected.ToString());
@@ -90,7 +90,7 @@ namespace comp110_worksheet_6_tests
 			else
 			{
 				Assert.IsTrue(board.SetSquare(x2, y2, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 				StringBuilder expected = new StringBuilder(".........");
 				expected[y1 * 3 + x1] = CharFromMark(p1);
 				expected[y2 * 3 + x2] = CharFromMark(p2);
@@ -112,14 +112,14 @@ namespace comp110_worksheet_6_tests
 			for (int y = 0; y < 2; y++)
 			{
 				Assert.IsTrue(board.SetSquare(x, y, p1));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 
 				Assert.IsTrue(board.SetSquare(x2, y, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 			}
 
 			Assert.IsTrue(board.SetSquare(x, 2, p1));
-			Assert.AreEqual(board.GetWinner(), p1);
+			Assert.AreEqual(p1, board.GetWinner());
 		}
 
 		[Test]
@@ -136,14 +136,14 @@ namespace comp110_worksheet_6_tests
 			for (int x = 0; x < 2; x++)
 			{
 				Assert.IsTrue(board.SetSquare(x, y, p1));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 
 				Assert.IsTrue(board.SetSquare(x, y2, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 			}
 
 			Assert.IsTrue(board.SetSquare(2, y, p1));
-			Assert.AreEqual(board.GetWinner(), p1);
+			Assert.AreEqual(p1, board.GetWinner());
 		}
 
 		[Test]
@@ -158,14 +158,14 @@ namespace comp110_worksheet_6_tests
 			for (int x = 0; x < 2; x++)
 			{
 				Assert.IsTrue(board.SetSquare(x, x, p1));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 
 				Assert.IsTrue(board.SetSquare(x, (x + 1) % 3, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 			}
 
 			Assert.IsTrue(board.SetSquare(2, 2, p1));
-			Assert.AreEqual(board.GetWinner(), p1);
+			Assert.AreEqual(p1, board.GetWinner());
 		}
 
 		[Test]
@@ -180,14 +180,14 @@ namespace comp110_worksheet_6_tests
 			for (int x = 0; x < 2; x++)
 			{
 				Assert.IsTrue(board.SetSquare(2-x, x, p1));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 
 				Assert.IsTrue(board.SetSquare(2-x, (x + 1) % 3, p2));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 			}
 
 			Assert.IsTrue(board.SetSquare(0, 2, p1));
-			Assert.AreEqual(board.GetWinner(), p1);
+			Assert.AreEqual(p1, board.GetWinner());
 		}
 
 		[Test]
@@ -203,14 +203,14 @@ namespace comp110_worksheet_6_tests
 				int y = moves[i, 1];
 
 				Assert.IsTrue(board.SetSquare(x, y, p));
-				Assert.AreEqual(board.GetWinner(), Mark.None);
+				Assert.AreEqual(Mark.None, board.GetWinner());
 				Assert.IsFalse(board.IsBoardFull());
 
 				p = (p == Mark.O) ? Mark.X : Mark.O;
 			}
 
 			Assert.IsTrue(board.SetSquare(2, 2, p));
-			Assert.AreEqual(board.GetWinner(), Mark.None);
+			Assert.AreEqual(Mark.None, board.GetWinner());
 			Assert.IsTrue(board.IsBoardFull());
 		}
 	}
