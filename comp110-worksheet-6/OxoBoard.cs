@@ -60,6 +60,83 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
+            // Checks every possible position to see if either player has got 3 in a row.
+            // Horizontal checking
+            if (board[0,0] == Mark.X && board[1, 0] == Mark.X && board[2, 0] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 1] == Mark.X && board[1, 1] == Mark.X && board[2, 1] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 2] == Mark.X && board[1, 2] == Mark.X && board[2, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 0] == Mark.O && board[1, 0] == Mark.O && board[2, 0] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (board[0, 1] == Mark.O && board[1, 1] == Mark.O && board[2, 1] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (board[0, 2] == Mark.O && board[1, 2] == Mark.O && board[2, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+
+            // Vertical checking
+            else if (board[0, 0] == Mark.X && board[0, 1] == Mark.X && board[0, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[1, 0] == Mark.X && board[1, 1 ] == Mark.X && board[1, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[2, 0] == Mark.X && board[2, 1] == Mark.X && board[2, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 0] == Mark.O && board[0, 1] == Mark.O && board[0, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (board[1, 0] == Mark.O && board[1, 1] == Mark.O && board[1, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (board[2, 0] == Mark.O && board[2, 1] == Mark.O && board[2, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+
+            // Diagonal checking
+            else if (board[0, 0] == Mark.X && board[1, 1] == Mark.X && board[2, 2] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 2] == Mark.X && board[1, 1] == Mark.X && board[2, 0] == Mark.X)
+            {
+                return Mark.X;
+            }
+            else if (board[0, 0] == Mark.O && board[1, 1] == Mark.O && board[2, 2] == Mark.O)
+            {
+                return Mark.O;
+            }
+            else if (board[0, 2] == Mark.O && board[1, 1] == Mark.O && board[2, 0] == Mark.O)
+            {
+                return Mark.O;
+            }
+
+            // Nobody wins
+            else
+            {
+                return Mark.None;
+            }
+
 		}
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
