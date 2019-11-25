@@ -17,7 +17,7 @@ namespace comp110_worksheet_6
 
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(int width = 5, int height = 5, int inARow = 3)
+		public OxoBoard(int width = 3, int height = 3, int inARow = 3)
 		{
 			//Assigning values to variables
 			board = new Mark[width, height];
@@ -134,10 +134,27 @@ namespace comp110_worksheet_6
 					}
 				}
 			}
+			
+			//Diagonal checks for a 3x3 board
+			if(board[0,0] == board[1,1] && board[1,1] == board[2, 2])
+			{
+				if(board[0,0] != Mark.None)
+				{
+					return board[0, 0];
+				}
+			}
+			if (board[2, 0] == board[1, 1] && board[1, 1] == board[0, 2])
+			{
+				if (board[2, 0] != Mark.None)
+				{
+					return board[2, 0];
+				}
+			}
 
-			#region diagonalChecks
+			#region diagonalChecks-stretch
 			//These two nested for loops check for diagonal wins in both direction, ascending and descending along the grid.
-			for (int horizontal = 0; horizontal < board.GetLongLength(0) - 1; horizontal++)
+			//Not complete
+			/*for (int horizontal = 0; horizontal < board.GetLongLength(0) - 1; horizontal++)
 			{
 				//Initialising some local variables to keep track of current progression and an increment counter for moving along the board.
 				int inCommon = 1;
@@ -173,18 +190,22 @@ namespace comp110_worksheet_6
 			}
 
 			//Similar function to last that instead checks the opposite direction along the board.
-			for (int vertical = 0; vertical < board.GetLongLength(1); vertical++)
+			for (int vertical = unchecked((int)board.GetLongLength(1)-1); vertical > -1; vertical--)
 			{
-				int inCommon = 1;
+				int inCommon = 0;
 				int tempVertical = vertical;
 				for (int horizontal = 0; horizontal < board.GetLongLength(0) - 1; horizontal++)
 				{
 					if (tempVertical - 1 > -1 && horizontal + 1 < board.GetLongLength(0))
 					{
+						Console.WriteLine("Checking... " + horizontal + " " + tempVertical);
+						Console.WriteLine("Checking... " + (horizontal+1) + " " + (tempVertical-1));
 						if (board[horizontal, tempVertical] == board[horizontal + 1, tempVertical - 1])
 						{
 							inCommon++;
-							if (inCommon >= numForARow)
+							Console.WriteLine("inCommon: " + inCommon.ToString() +" "+ board[horizontal, tempVertical]);
+							Console.WriteLine("Board space = " + (horizontal+1) + (tempVertical-1) + " Output = " + board[horizontal+1, tempVertical-1]);
+							if (inCommon >= numForARow-1)
 							{
 								//If the cells in common are player marks, it will return the player's mark
 								if (board[horizontal, tempVertical] != Mark.None)
@@ -195,15 +216,16 @@ namespace comp110_worksheet_6
 						}
 						else
 						{
-							inCommon = 1;
+							inCommon = 0;
 						}
 						if (tempVertical > 1)
 						{
 							tempVertical--;
 						}
 					}
+
 				}
-			}
+			}*/
 			#endregion
 
 			//If all of the tests fail, it is likely neither player has won, therefore return Mark.None;
