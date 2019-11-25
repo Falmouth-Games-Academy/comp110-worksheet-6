@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 namespace comp110_worksheet_6
 {
-	public enum Mark { None, O, X };
-    
+    public enum Mark { None, O, X };
 
-	public class OxoBoard
-	{
+
+    public class OxoBoard
+    {
         public Mark[,] Board;
+        /*I did not hit her, it's not true!
+        It's bullshit! I did not hit her!
+        I did not!
+        Oh hi, Mark*/
         private int inARow;
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public OxoBoard(int width = 3, int height = 3, int inARowToWin = 3)
-		{
+        {
             inARow = inARowToWin;
             Board = new Mark[width, height];
             for (int y = 0; y < Board.GetLength(1); y++)
@@ -26,19 +30,19 @@ namespace comp110_worksheet_6
                     Board[x, y] = Mark.None;
                 }
             }
-		}
+        }
 
-		// Return the contents of the specified square.
-		public Mark GetSquare(int x, int y)
-		{
+        // Return the contents of the specified square.
+        public Mark GetSquare(int x, int y)
+        {
             return Board[x, y];
-		}
+        }
 
-		// If the specified square is currently empty, fill it with mark and return true.
-		// If the square is not empty, leave it as-is and return False.
-		public bool SetSquare(int x, int y, Mark mark)
-		{
-            if (Board[x, y] == Mark.None )
+        // If the specified square is currently empty, fill it with mark and return true.
+        // If the square is not empty, leave it as-is and return False.
+        public bool SetSquare(int x, int y, Mark mark)
+        {
+            if (Board[x, y] == Mark.None)
             {
                 Board[x, y] = mark;
                 return true;
@@ -47,12 +51,12 @@ namespace comp110_worksheet_6
             {
                 return false;
             }
-		}
+        }
 
-		// If there are still empty squares on the board, return false.
-		// If there are no empty squares, return true.
-		public bool IsBoardFull()
-		{
+        // If there are still empty squares on the board, return false.
+        // If there are no empty squares, return true.
+        public bool IsBoardFull()
+        {
             for (int y = 0; y < Board.GetLength(1); y++)
             {
                 for (int x = 0; x < Board.GetLength(0); x++)
@@ -64,99 +68,116 @@ namespace comp110_worksheet_6
                 }
             }
             return true;
-		}
+        }
 
-		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
-		// Otherwise, return Mark.None.
-		public Mark GetWinner()
-		{
+        // If a player has three in a row, return Mark.O or Mark.X depending on which player.
+        // Otherwise, return Mark.None.
+        public Mark GetWinner()
+        {
+            //Double for loop to check horizontal sequences of the same mark
             for (int y = 0; y < Board.GetLength(1); y++)
             {
                 for (int x = 0; x <= Board.GetLength(0) - inARow; x++)
                 {
                     Mark markToCheck = Board[x, y];
                     bool sequence = true;
-                    for (int k = 1; k < inARow; k++)
+                    if (markToCheck != Mark.None)
                     {
-                        if (Board[x + k, y] != markToCheck)
+                        for (int k = 1; k < inARow; k++)
                         {
-                            sequence = false;
-                            break;
+                            if (Board[x + k, y] != markToCheck)
+                            {
+                                sequence = false;
+                                break;
+                            }
                         }
-                    }
-                    if (sequence)
-                    {
-                        return markToCheck;
+                        if (sequence)
+                        {
+                            return markToCheck;
+                        }
                     }
                 }
             }
 
+            //Double for loop to check vertical sequences of the same mark
             for (int y = 0; y <= Board.GetLength(1) - inARow; y++)
             {
                 for (int x = 0; x < Board.GetLength(0); x++)
                 {
                     Mark markToCheck = Board[x, y];
                     bool sequence = true;
-                    for (int k = 1; k < inARow; k++)
+                    if (markToCheck != Mark.None)
                     {
-                        if (Board[x, y + k] != markToCheck)
+                        for (int k = 1; k < inARow; k++)
                         {
-                            sequence = false;
-                            break;
+                            if (Board[x, y + k] != markToCheck)
+                            {
+                                sequence = false;
+                                break;
+                            }
                         }
-                    }
-                    if (sequence)
-                    {
-                        return markToCheck;
+                        if (sequence)
+                        {
+                            return markToCheck;
+                        }
                     }
                 }
             }
 
+            //Double for loop to check left-to-right diagonal sequences of the same mark
             for (int y = 0; y <= Board.GetLength(1) - inARow; y++)
             {
                 for (int x = 0; x <= Board.GetLength(0) - inARow; x++)
                 {
                     Mark markToCheck = Board[x, y];
                     bool sequence = true;
-                    for (int k = 1; k < inARow; k++)
+                    if (markToCheck != Mark.None)
                     {
-                        if (Board[x + k, y + k] != markToCheck)
+                        for (int k = 1; k < inARow; k++)
                         {
-                            sequence = false;
-                            break;
+                            if (Board[x + k, y + k] != markToCheck)
+                            {
+                                sequence = false;
+                                break;
+                            }
                         }
-                    }
-                    if (sequence)
-                    {
-                        return markToCheck;
+                        if (sequence)
+                        {
+                            return markToCheck;
+                        }
                     }
                 }
             }
 
-            for (int y = 0; y < Board.GetLength(1) - inARow; y++)
+            //Double for loop to check right-to-left diagonal sequences of the same mark
+            for (int y = 0; y <= Board.GetLength(1) - inARow; y++)
             {
-                for (int x = 0; x < Board.GetLength(0) - inARow; x++)
+                for (int x = inARow - 1; x < Board.GetLength(0); x++)
                 {
                     Mark markToCheck = Board[x, y];
                     bool sequence = true;
-                    int k2 = 1;
-                    for (int k = inARow; k > 0; k--)
+                    if (markToCheck != Mark.None)
                     {
-                        if (Board[x + k, y + k2] != markToCheck)
+                        for (int k = 1; k < inARow; k++)
                         {
-                            sequence = false;
-                            break;
+                            if (Board[x - k, y + k] != markToCheck)
+                            {
+                                sequence = false;
+                                break;
+                            }
                         }
-                        k2++;
-                    }
-                    if (sequence)
-                    {
-                        return markToCheck;
+                        if (sequence)
+                        {
+                            return markToCheck;
+                        }
                     }
                 }
             }
 
-            /*if (Board[0, 0] == Mark.O && Board[0, 1] == Mark.O && Board[0, 2] == Mark.O )
+            /*
+            This deserves to stay here as a reminder of what we went through, the horrors that we've seen and the suffering we endured.
+
+            if (Board[0, 0] == Mark.O && Board[0, 1] == Mark.O && Board[0, 2] == Mark.O )
             {
                 return Mark.O;
             }
@@ -227,33 +248,39 @@ namespace comp110_worksheet_6
             return Mark.None;
         }
 
-		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
-		public void PrintBoard()
-		{
-			for (int y = 0; y < Board.GetLength(1); y++)
-			{
-				if (y > 0)
-					Console.WriteLine("--+---+--");
+        // Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
+        public void PrintBoard()
+        {
+            for (int y = 0; y < Board.GetLength(1); y++)
+            {
+                if (y > 0)
+                {
+                    Console.Write("--+");
+                    for (int i = 0; i < Board.GetLength(0) - 2; i++)
+                    {
+                        Console.Write("---+");
+                    }
+                    Console.WriteLine("--");
+                }
 
-				for (int x = 0; x < Board.GetLength(0); x++)
-				{
-					if (x > 0)
-						Console.Write(" | ");
+                for (int x = 0; x < Board.GetLength(0); x++)
+                {
+                    if (x > 0)
+                        Console.Write(" | ");
 
-					switch (GetSquare(x, y))
-					{
-						case Mark.None:
-							Console.Write(" "); break;
-						case Mark.O:
-							Console.Write("O"); break;
-						case Mark.X:
-							Console.Write("X"); break;
-					}
-				}
+                    switch (GetSquare(x, y))
+                    {
+                        case Mark.None:
+                            Console.Write(" "); break;
+                        case Mark.O:
+                            Console.Write("O"); break;
+                        case Mark.X:
+                            Console.Write("X"); break;
+                    }
+                }
 
-				Console.WriteLine();
-			}
-		}
-	}
+                Console.WriteLine();
+            }
+        }
+    }
 }
-
