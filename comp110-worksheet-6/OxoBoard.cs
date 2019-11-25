@@ -68,56 +68,56 @@ namespace comp110_worksheet_6
                 // Otherwise, return Mark.None.
                 public Mark GetWinner()
                 {
-                    if Mark.O == tictacktoe[0, 0],[1, 1],[2, 2]{
+                    if Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[2, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
                     }
-                    else if Mark.O == tictacktoe[1, 0],[1, 1],[0, 2]{
+                    else if Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[0, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
         
-                    else if Mark.O == tictacktoe[0, 0],[1, 0],[2, 0]{
+                    else if Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[2, 0]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.O == tictacktoe[0, 0] , [0, 1] , [0, 2]{
+                    else if Mark.O == tictacktoe[0, 0]&&Mark.O == tictacktoe[0, 1]&&Mark.O == tictacktoe[0, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.O == tictacktoe[1, 0] , [1, 1] , [1, 2]{
+                    else if Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[1, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.O == tictacktoe[2, 0] , [2, 1] , [2, 2]{
+                    else if Mark.O == tictacktoe[2, 0]&&Mark.O == tictacktoe[2, 1]&&Mark.O == tictacktoe[2, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
                     
-                    else if Mark.X == tictacktoe[0, 0],[1, 1],[2, 2]{
+                    else if Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[2, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
 
-                    else if Mark.X == tictacktoe[1, 0],[1, 1],[0, 2]{
+                    else if Mark.X == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[0, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
         
-                    else if Mark.X == tictacktoe[0, 0],[1, 0],[2, 0]{
+                    else if Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[1, 0]&&Mark.O == tictacktoe[2, 0]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.X == tictacktoe[0, 0] , [0, 1] , [0, 2]{
+                    else if Mark.X == tictacktoe[0, 0]&&Mark.O == tictacktoe[0, 1] &&Mark.O == tictacktoe [0, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.X == tictacktoe[1, 0] , [1, 1] , [1, 2]{
+                    else if Mark.X == tictacktoe[1, 0]&&Mark.O == tictacktoe[1, 1]&&Mark.O == tictacktoe[1, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit(); 
-                    else if Mark.X == tictacktoe[2, 0] , [2, 1] , [2, 2]{
+                    else if Mark.X == tictacktoe[2, 0]&&Mark.O == tictacktoe[2, 1]&&Mark.O == tictacktoe[2, 2]{
                     Console.WriteLine("You Win");
                     Console.ReadLine();
                     Application.Exit();
