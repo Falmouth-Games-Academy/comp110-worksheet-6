@@ -16,6 +16,7 @@ namespace comp110_worksheet_6
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
+            //Sets up the boards values and sets them all to none
             Squares = new Mark[3, 3];
 
             for (int y = 0; y < 3; y++)
@@ -61,6 +62,7 @@ namespace comp110_worksheet_6
             bool full;
             int remaining = 0;
 
+            // Counts number of empty squares
             for (int y = 0; y < 3; y++)
             {
                 for (int x = 0; x < 3; x++)
@@ -72,6 +74,7 @@ namespace comp110_worksheet_6
                 }
             }
 
+            // Returns true only if there are no empty squares
             if (remaining > 0)
             {
                 full = false;
@@ -91,7 +94,7 @@ namespace comp110_worksheet_6
 		{
             Mark winner = Mark.None;
 
-            //all x
+            // Checks if any X rows are all one type
             for (int x = 0; x < 3; x++)
             {
                 int Xrow = 0;
@@ -121,7 +124,7 @@ namespace comp110_worksheet_6
                 }
             }
 
-            //all y
+            // Checks if any Y rows are all one type
             for (int y = 0; y < 3; y++)
             {
                 int Xrow = 0;
@@ -152,13 +155,13 @@ namespace comp110_worksheet_6
             }
 
 
-            //down diagonal
+            // Checks if the down diagonal is all one type
             if (Squares[0,0] == Squares[1,1] && Squares[0, 0] == Squares[2, 2])
             {
                 winner = Squares[0, 0];
             }
 
-            //up diagonal
+            // Checks if the up diagonal is all one type
             if (Squares[0, 2] == Squares[1, 1] && Squares[0, 2] == Squares[2, 0])
             {
                 winner = Squares[0, 2];
