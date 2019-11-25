@@ -59,7 +59,50 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
+            if(gameBoard[0,0] == gameBoard[1,0] && gameBoard[0,0] == gameBoard[2,0])
+            {
+                return gameBoard[0, 0];
+            }
             
+            else if (gameBoard[0, 1] == gameBoard[1, 1] && gameBoard[0, 1] == gameBoard[2, 1])
+            {
+                return gameBoard[0, 1];
+            }
+
+            else if (gameBoard[0, 2] == gameBoard[1, 2] && gameBoard[0, 2] == gameBoard[2, 2])
+            {
+                return gameBoard[0, 2];
+            }
+
+            else if (gameBoard[0, 0] == gameBoard[0, 1] && gameBoard[0, 0] == gameBoard[0, 2])
+            {
+                return gameBoard[0, 0];
+            }
+
+            else if (gameBoard[1, 0] == gameBoard[1, 1] && gameBoard[1, 0] == gameBoard[1, 2])
+            {
+                return gameBoard[1, 0];
+            }
+
+            else if (gameBoard[2, 0] == gameBoard[2, 1] && gameBoard[2, 0] == gameBoard[2, 2])
+            {
+                return gameBoard[2, 0];
+            }
+
+            else if (gameBoard[0, 0] == gameBoard[1, 1] && gameBoard[0, 0] == gameBoard[2, 1])
+            {
+                return gameBoard[0, 0];
+            }
+
+            else if (gameBoard[0, 2] == gameBoard[1, 1] && gameBoard[2, 0] == gameBoard[2, 0])
+            {
+                return gameBoard[0, 2];
+            }
+
+            else
+            {
+                return Mark.None;
+            }
         }
         
     
