@@ -21,6 +21,7 @@ namespace comp110_worksheet_6
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
+
 		{
             return boardState[x, y];
 		}
@@ -29,16 +30,14 @@ namespace comp110_worksheet_6
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-            if (boardState[x, y] != Mark.None)    // Checks inputted square on board for being empty
+            if (boardState[x, y] == Mark.None)    // Checks inputted square on board for being empty
             {
                 boardState[x, y] = mark;
                 return true;    // Sets square to imputted mark and returns true
             }
-            else
-            {
-                return false;
-            }
-		}
+
+            return false;
+        }
 
         // If there are still empty squares on the board, return false.
         // If there are no empty squares, return true.
@@ -60,42 +59,51 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-            if (boardState[0, 0] == boardState[1, 0] && boardState[0, 0] == boardState[2, 0])
+            // Horizontal
+            if (boardState[0, 0] == boardState[1, 0] && boardState[0, 0] == boardState[2, 0] && boardState[0, 0] != Mark.None)
             {
+                Console.WriteLine("HTop");
                 return boardState[0, 0];    // Returns the symbol in the top left corner after comparing it to the rest of the top row
             }                               // This is similarly implemented for each of the if statements below which check one of eight possible win conditions
-            else if (boardState[0, 1] == boardState[1, 1] && boardState[0, 1] == boardState[2, 1])
+            else if (boardState[0, 1] == boardState[1, 1] && boardState[0, 1] == boardState[2, 1] && boardState[0, 1] != Mark.None)
             {
+                Console.WriteLine("HMid");
                 return boardState[0, 1];
             }
-            else if (boardState[0, 2] == boardState[1, 2] && boardState[0, 2] == boardState[2, 2])
+            else if (boardState[0, 2] == boardState[1, 2] && boardState[0, 2] == boardState[2, 2] && boardState[0, 2] != Mark.None)
             {
+                Console.WriteLine("HBot");
                 return boardState[0, 2];
             }
-            else if (boardState[0, 0] == boardState[0, 1] && boardState[0, 0] == boardState[0, 2])
+
+            // Vertical
+            if (boardState[0, 0] == boardState[0, 1] && boardState[0, 0] == boardState[0, 2] && boardState[0, 0] != Mark.None)
             {
+                Console.WriteLine("VTop");
                 return boardState[0, 0];
             }
-            else if (boardState[1, 0] == boardState[1, 1] && boardState[1, 0] == boardState[1, 2])
+            else if (boardState[1, 0] == boardState[1, 1] && boardState[1, 0] == boardState[1, 2] && boardState[1, 0] != Mark.None)
             {
+                Console.WriteLine("VMid");
                 return boardState[1, 0];
             }
-            else if (boardState[2, 0] == boardState[2, 1] && boardState[2, 0] == boardState[2, 2])
+            else if (boardState[2, 0] == boardState[2, 1] && boardState[2, 0] == boardState[2, 2] && boardState[2, 0] != Mark.None)
             {
+                Console.WriteLine("VBot");
                 return boardState[2, 0];
             }
-            else if (boardState[0, 0] == boardState[1, 1] && boardState[0, 0] == boardState[2, 2])
+
+            // Diagonal
+            if (boardState[0, 0] == boardState[1, 1] && boardState[0, 0] == boardState[2, 2] && boardState[0, 0] != Mark.None)
             {
                 return boardState[0, 0];
             }
-            else if (boardState[0, 2] == boardState[1, 1] && boardState[0, 1] == boardState[2, 0])
+            else if (boardState[0, 2] == boardState[1, 1] && boardState[0, 2] == boardState[2, 0] && boardState[0, 2] != Mark.None)
             {
                 return boardState[0, 2];
             }
-            else
-            {
-                return Mark.None;    // Returns "None" if no win condition is found
-            }
+
+            return Mark.None;    // Returns "None" if no win condition is found
         }
 
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
