@@ -10,10 +10,13 @@ namespace comp110_worksheet_6
 
     public class OxoBoard
     {
-        // Constructor. Perform any necessary data initialisation here.
-        // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
+       
         Mark[,] board;
-
+        /// <summary>
+        /// Sets the dimensions of the board
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public OxoBoard(int width = 3, int height = 3)
         {
             board = new Mark[width, height];
@@ -25,8 +28,14 @@ namespace comp110_worksheet_6
             return board[x, y];
         }
 
-        // If the specified square is currently empty, fill it with mark and return true.
-        // If the square is not empty, leave it as-is and return False.
+        /// <summary>
+        /// Checks to make sure that the square selected by the user is empty
+        /// Sets the square to the correct mark, as long as it was empty
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="mark"></param>
+        /// <returns></returns>
         public bool SetSquare(int x, int y, Mark mark)
         {
             if (x < board.GetLength(0) && y < board.GetLength(1))
@@ -41,8 +50,10 @@ namespace comp110_worksheet_6
             return false;
         }
 
-        // If there are still empty squares on the board, return false.
-        // If there are no empty squares, return true.
+        /// <summary>
+        /// Checks to see if the board is full
+        /// </summary>
+        /// <returns></returns>
         public bool IsBoardFull()
         {
             for (int x = 0; x < board.GetLength(0); x++)
@@ -59,8 +70,11 @@ namespace comp110_worksheet_6
             return true;
         }
 
-        // If a player has three in a row, return Mark.O or Mark.X depending on which player.
-        // Otherwise, return Mark.None.
+        /// <summary>
+        /// Checks to see if there are any 3 in a row
+        /// Returns the winner
+        /// </summary>
+        /// <returns></returns>
         public Mark GetWinner()
         {
             foreach (Mark mark in new Mark[] { Mark.O, Mark.X })
