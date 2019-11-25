@@ -70,14 +70,14 @@ namespace comp110_worksheet_6
 			return true;
 		}
 
-		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
+		// If a player has x in a row, return Mark.O or Mark.X depending on which player.
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
             int playerOCount;
 			int playerXCount;
 
-			// Checks the board horizontally for three in a row
+			// Checks the board horizontally for x in a row
 			for (int x = 0; x < board.GetLength(0); x++)
 			{
                 playerXCount = 0;
@@ -107,10 +107,12 @@ namespace comp110_worksheet_6
 			playerXCount = 0;
 			playerOCount = 0;
 
-			// Checks the board vertically for three in a row
+			// Checks the board vertically for x in a row
 			for (int y = 0; y < board.GetLength(0); y++)
 			{
-				for (int x = 0; x < board.GetLength(1); x++)
+                playerXCount = 0;
+                playerOCount = 0;
+                for (int x = 0; x < board.GetLength(1); x++)
 				{
 					if (board[x, y] == Mark.O)
 					{
@@ -119,11 +121,6 @@ namespace comp110_worksheet_6
 					else if (board[x, y] == Mark.X)
 					{
 						playerXCount++;
-					}
-					else
-					{
-						playerXCount = 0;
-						playerOCount = 0;
 					}
 
 					if (playerOCount == itemsInARow)
@@ -136,6 +133,21 @@ namespace comp110_worksheet_6
 					}
 				}
 			}
+
+            // Checks for diagonals.
+            for (int x = 0; x < board.GetLength(1); x++)
+            {
+                for (int y = 0; y < board.GetLength(0); y++)
+                {
+                    if (board[x, y] == Mark.O)
+                    {
+                        do
+                        {
+
+                        } while (true);
+                    }
+                }
+            }
 
 			return Mark.None;
 		}
