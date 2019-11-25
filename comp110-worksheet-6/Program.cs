@@ -39,8 +39,20 @@ namespace comp110_worksheet_6
 		{
 			bool gameIsOver = false;
 			Mark currentPlayer = Mark.O;
-			OxoBoard board = new OxoBoard();
 
+            // Gets the board width and height from the player.
+            Console.WriteLine("Enter the width of the board: ");
+            int boardWidth = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the height of the board: ");
+            int boardHeight = Int32.Parse(Console.ReadLine());
+
+            // Gets the target number of symbols in a row.
+            Console.WriteLine("Enter the number of symbols in a row to win: ");
+            int symbolsInARow = Int32.Parse(Console.ReadLine());
+
+            OxoBoard board = new OxoBoard(boardWidth, boardHeight, symbolsInARow);
+
+            // Render loop.
 			while (!gameIsOver)
 			{
 				// Print board

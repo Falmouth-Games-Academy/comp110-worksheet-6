@@ -19,11 +19,13 @@ namespace comp110_worksheet_6
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
 
 		private Mark[,] board;
+        private int itemsInARow;
 
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
-		{
+		public OxoBoard(int width = 3, int height = 3, int inARow = 3)
+        {
 			// Initialises game board to a 3 * 3 square
-			board = new Mark[3, 3];
+			board = new Mark[width, height];
+            itemsInARow = inARow;
 		}
 
 		// Return the contents of the specified square.
@@ -72,13 +74,15 @@ namespace comp110_worksheet_6
 		// Otherwise, return Mark.None.
 		public Mark GetWinner()
 		{
-			int playerOCount = 0;
-			int playerXCount = 0;
+            int playerOCount;
+			int playerXCount;
 
 			// Checks the board horizontally for three in a row
 			for (int x = 0; x < board.GetLength(0); x++)
 			{
-				for (int y = 0; y < board.GetLength(1); y++)
+                playerXCount = 0;
+                playerOCount = 0;
+                for (int y = 0; y < board.GetLength(1); y++)
 				{
 					if (board[x, y] == Mark.O)
 					{
@@ -88,17 +92,12 @@ namespace comp110_worksheet_6
 					{
 						playerXCount++;
 					}
-					else
-					{
-						playerXCount = 0;
-						playerOCount = 0;
-					}
 
-					if (playerOCount == 3)
+					if (playerOCount == itemsInARow)
 					{
 						return Mark.O;
 					} 
-					else if (playerXCount == 3)
+					else if (playerXCount == itemsInARow)
 					{
 						return Mark.X;
 					}
@@ -127,11 +126,11 @@ namespace comp110_worksheet_6
 						playerOCount = 0;
 					}
 
-					if (playerOCount == 3)
+					if (playerOCount == itemsInARow)
 					{
 						return Mark.O;
 					} 
-					else if (playerXCount == 3)
+					else if (playerXCount == itemsInARow)
 					{
 						return Mark.X;
 					}
@@ -144,12 +143,12 @@ namespace comp110_worksheet_6
 		// Display the current board state in the terminal. You should only need to edit this if you are attempting the stretch goal.
 		public void PrintBoard()
 		{
-			for (int y = 0; y < 3; y++)
+			for (int y = 0; y < board.GetLength(0); y++)
 			{
 				if (y > 0)
 					Console.WriteLine("--+---+--");
 
-				for (int x = 0; x < 3; x++)
+				for (int x = 0; x < board.GetLength(1); x++)
 				{
 					if (x > 0)
 						Console.Write(" | ");
