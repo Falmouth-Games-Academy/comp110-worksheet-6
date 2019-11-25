@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace comp110_worksheet_6
 {
@@ -11,8 +12,6 @@ namespace comp110_worksheet_6
         private int BoardHeight;
         private Mark[,] Board;
         private int InARow;
-
-        private readonly int WinConditionCount = 8;
         // TODO:
         private readonly List<int[,]> WinConditions = new List<int[,]> {
              new int [3,2] { { 0, 0 }, { 0, 1 }, { 0, 2 } },
@@ -79,10 +78,10 @@ namespace comp110_worksheet_6
 
         private bool Every<T>(List<T> list, Func<T, T, bool> predicate)
         {
-            T last = default(T);
+            T last = list[0];
             for(int i = 0; i < list.Count; i++)
             {
-                if (predicate(last, list[i]))
+                if (!predicate(last, list[i]))
                     return true;
                 last = list[i];
             }
@@ -93,14 +92,19 @@ namespace comp110_worksheet_6
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-            for (int win = 0; win < WinConditionCount; win++)
+            for (int win = 0; win < WinConditions.Count; win++)
             {
                 List<Mark> state = GetMarks(WinConditions[win]);
-                bool result = Every(state, 
-                    (prev, curr) => (curr != Mark.None) && prev == curr
-                );
-                if (result && state[0] != Mark.None) return state[0];
-                continue;
+
+                if (state[0] == Mark.O && state[1] == Mark.O && state[2] == Mark.O)
+                    return Mark.O;
+                if (state[0] == Mark.X && state[1] == Mark.X && state[2] == Mark.X)
+                    return Mark.X;
+
+                //bool result = Every(state, 
+                //    (prev, curr) => (curr != Mark.None) && prev == curr
+                //);
+                //state.Contains(Mark.None);
             }
             return Mark.None;
             //Mark state = Mark.None;
