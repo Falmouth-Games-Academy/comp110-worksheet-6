@@ -123,8 +123,8 @@ namespace comp110_worksheet_6
                     Application.Exit();
                     
                    }
-              else Mark.None{
-               return false;
+              else {
+               return Mark.None;
     `         }
 		}           
 
