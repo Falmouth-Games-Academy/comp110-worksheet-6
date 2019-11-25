@@ -12,29 +12,50 @@ namespace comp110_worksheet_6
 	{
 		// Constructor. Perform any necessary data initialisation here.
 		// Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
-		public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
+		Mark[,] board;
+        
+        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			board = new Mark[3,3];
 		}
 
 		// Return the contents of the specified square.
 		public Mark GetSquare(int x, int y)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			return board[x,y];
 		}
 
 		// If the specified square is currently empty, fill it with mark and return true.
 		// If the square is not empty, leave it as-is and return False.
 		public bool SetSquare(int x, int y, Mark mark)
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			if (x < board.GetLength(0) && y < board.GetLength(0))
+            {
+                if(board[x,y] == Mark.None)
+                {
+                    board[x,y] = mark;
+                    return true;
+                }
+            }
+            return false;
 		}
 
 		// If there are still empty squares on the board, return false.
 		// If there are no empty squares, return true.
 		public bool IsBoardFull()
 		{
-			throw new NotImplementedException("TODO: implement this function and then remove this exception");
+			for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    if (board[x,y] == Mark.None)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            return true;
 		}
 
 		// If a player has three in a row, return Mark.O or Mark.X depending on which player.
