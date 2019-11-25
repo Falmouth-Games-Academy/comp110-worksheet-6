@@ -70,7 +70,7 @@ namespace comp110_worksheet_6
 			return true;
 		}
 
-        private bool CheckDiagonals(int x, int y)
+        private bool CheckDiagonals(int x, int y, Mark targetMark)
         {
             bool checkLeft = true;
             bool checkRight = true;
@@ -83,16 +83,16 @@ namespace comp110_worksheet_6
             testY++;
             if (testX < board.GetLength(0) && testY < board.GetLength(1))
             {
-                if (board[testX, testY] == Mark.O)
+                if (board[testX, testY] == targetMark)
                 {
-                    int symbolCount = 1;
+                    int symbolCount = 2;
                     do
                     {
                         testX++;
                         testY++;
                         if (testX < board.GetLength(0) && testY < board.GetLength(1))
                         {
-                            if (board[testX, testY] == Mark.O)
+                            if (board[testX, testY] == targetMark)
                             {
                                 symbolCount++;
                             } 
@@ -123,21 +123,24 @@ namespace comp110_worksheet_6
             }
 
             // Otherwise we check the down and left diagonals.
-            testX = x--;
-            testY = y++;
+            testX = x;
+            testY = y;
+
+            testX--;
+            testY++;
 
             if (testX > 0 && testY < board.GetLength(1))
             {
-                if (board[testX, testY] == Mark.O)
+                if (board[testX, testY] == targetMark)
                 {
-                    int symbolCount = 1;
+                    int symbolCount = 2;
                     do
                     {
                         testX--;
                         testY++;
-                        if (testX > 0 && testY < board.GetLength(1))
+                        if (testX >= 0 && testY < board.GetLength(1))
                         {
-                            if (board[testX, testY] == Mark.O)
+                            if (board[testX, testY] == targetMark)
                             {
                                 symbolCount++;
                             } else
@@ -169,7 +172,7 @@ namespace comp110_worksheet_6
             int playerOCount;
 			int playerXCount;
 
-			// Checks the board horizontally for x in a row
+			// Checks the board vertically for x in a row
 			for (int x = 0; x < board.GetLength(0); x++)
 			{
                 playerXCount = 0;
@@ -199,7 +202,7 @@ namespace comp110_worksheet_6
 			playerXCount = 0;
 			playerOCount = 0;
 
-			// Checks the board vertically for x in a row
+			// Checks the board horizontally for x in a row
 			for (int y = 0; y < board.GetLength(1); y++)
 			{
                 playerXCount = 0;
@@ -235,7 +238,7 @@ namespace comp110_worksheet_6
                 {
                     if (board[x, y] == Mark.O)
                     {
-                        if (CheckDiagonals(x, y))
+                        if (CheckDiagonals(x, y, Mark.O))
                         {
                             return Mark.O;
                         }
@@ -243,7 +246,7 @@ namespace comp110_worksheet_6
 
                     if (board[x, y] == Mark.X)
                     {
-                        if (CheckDiagonals(x, y))
+                        if (CheckDiagonals(x, y, Mark.X))
                         {
                             return Mark.X;
                         }
