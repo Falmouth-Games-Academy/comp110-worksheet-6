@@ -132,10 +132,6 @@ namespace comp110_worksheet_6
                 {
                     return mark;
                 }
-                else
-                {
-                    return Mark.None;
-                }
             }
             return Mark.None;
 		}
