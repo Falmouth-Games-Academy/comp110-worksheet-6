@@ -11,8 +11,8 @@ namespace comp110_worksheet_6 {
         // Constructor. Perform any necessary data initialisation here.
         // Uncomment the optional parameters if attempting the stretch goal -- keep the default values to avoid breaking unit tests.
         private Mark[,] boardSize;
-        public OxoBoard(/* int width = 3, int height = 3, int inARow = 3 */) {
-            boardSize = new Mark[3, 3];
+        public OxoBoard( int width = 3, int height = 3, int inARow = 3 ) {
+            boardSize = new Mark[width, height];
         }
 
         // Return the contents of the specified square.
@@ -48,25 +48,25 @@ namespace comp110_worksheet_6 {
         // If a player has three in a row, return Mark.O or Mark.X depending on which player.
         // Otherwise, return Mark.None.
         public Mark GetWinner() {
-            // Check Horizontal
-            for (int h = 0; h < boardSize.GetLength(0); h++) {
-                if (boardSize[h, 0] == boardSize[h, 1] && boardSize[h, 1] == boardSize[h, 2]) {
-                    return GetSquare(h, 0);
+            // Check if Horizontal win
+            for (int horizontal = 0; horizontal < boardSize.GetLength(0); horizontal++) {
+                if (boardSize[horizontal, 0] == boardSize[horizontal, 1] && boardSize[horizontal, 1] == boardSize[horizontal, 2]) {
+                    return GetSquare(horizontal, 0);
                 }
             }
 
-            // Check Vertical
-            for (int v = 0; v < boardSize.GetLength(1); v++) {
-                if (boardSize[0, v] == boardSize[1, v] && boardSize[1, v] == boardSize[2, v]) {
-                    return GetSquare(v, 0);
+            // Check if Vertical win
+            for (int Vertical = 0; Vertical < boardSize.GetLength(1); Vertical++) {
+                if (boardSize[0, Vertical] == boardSize[1, Vertical] && boardSize[1, Vertical] == boardSize[2, Vertical]) {
+                    return GetSquare(Vertical, 0);
                 }
             }
 
-            // Check Diagonal
+            // Check if Diagonal win
             if (boardSize[0, 0] == boardSize[1, 1] && boardSize[1, 1] == boardSize[2, 2]) {
                 return GetSquare(0, 0);
             }
-            if (boardSize[2, 0] == boardSize[1, 1] && boardSize[1, 1] == boardSize[0, 2]) {
+            else if (boardSize[2, 0] == boardSize[1, 1] && boardSize[1, 1] == boardSize[0, 2]) {
                 return GetSquare(2, 0);
             }
 
