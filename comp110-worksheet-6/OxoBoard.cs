@@ -28,11 +28,13 @@ namespace comp110_worksheet_6
         //Initialize the board with a 2D array and then iterate through each one of its coordinates, marking them as empty/none therefore creating an "empty" board.
         public OxoBoard(int width = 3, int height = 3, int inARow = 3)
         {
-            board = new Mark[width, height];
+            board = new Mark[3, 3];
 
             for (int i = 0; i < width; i++)
+            {
                 for (int j = 0; j < height; j++)
                     board[i, j] = Mark.None;
+            }
         }
 
         // Return the contents of the specified square.
@@ -42,16 +44,27 @@ namespace comp110_worksheet_6
         }
         // If the specified square is currently empty, fill it with mark and return true.
         // If the square is not empty, leave it as-is and return False.
+
+            //Check if the coordinates, x and y, don't surpass the boundaries.
+
         public bool SetSquare(int x, int y, Mark mark)
         {
-            if (board[x, y] == Mark.None)
+            int counter;
+
+            if ((x >= 0 && x < 3) && (y >= 0 && y <3))
             {
-                board[x, y] = mark;
-                return true;
+                if (board[x, y] == Mark.None)
+                {
+                    board[x, y] = mark;
+                    return true;
+                }
             }
             return false;
 
         }
+
+        //counter++;
+
 
         // If there are still empty squares on the board, return false.
         // If there are no empty squares, return true.
@@ -75,27 +88,30 @@ namespace comp110_worksheet_6
         // Otherwise, return Mark.None.
         public Mark GetWinner()
         {
-            //Check for vertical marks
+            //Check for vertical marks + making sure the square that is in a row is not empty
             for (int i = 0; i < 3; i++)
             {
-                if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
+                if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2] && GetSquare(i, 0) != Mark.None)
                     return GetSquare(i, 0);
 
             }
 
-            //Check for horizontal marks
+            //Check for horizontal marks making sure the square that is in a row is not empty
             for (int j = 0; j < 3; j++)
             {
-                if (board[0, j] == board[1, j] && board[1, j] == board[2, j])
+                if (board[0, j] == board[1, j] && board[1, j] == board[2, j] && GetSquare(0, j) != Mark.None)
                     return GetSquare(0, j);
 
             }
 
-            //Check for diagonal marks
-            if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
-                return GetSquare(0, 0);
+            //Check for diagonal marks making sure the square that is in a row is not empty
+            if ((board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2] || board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0]) && GetSquare(1, 1) != Mark.None)
+                return GetSquare(1, 1);
+
+            /*
             if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
                 return GetSquare(0, 2);
+            */
 
 
             return Mark.None;
@@ -104,7 +120,9 @@ namespace comp110_worksheet_6
 
 
 
-        /*
+        // Strech goal attempts below for nxn board + 'k' in a row.
+
+        
         public bool isHorizontal(int i, int j)
         {
             int counter = 0;
@@ -142,7 +160,7 @@ namespace comp110_worksheet_6
                 return true;
             return false;
         }
-        */
+        
 
 
 
